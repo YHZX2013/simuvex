@@ -109,7 +109,7 @@ class SimProcedure(object):
         override = None
         if self.is_syscall:
             state.scratch.executed_syscall_count = 1
-            if len(state.posix.queued_syscall_returns):
+            if len(state.posix.queued_syscall_returns) != 0:
                 override = state.posix.queued_syscall_returns.pop(0)
 
         if callable(override):
@@ -147,9 +147,6 @@ class SimProcedure(object):
         if self.returns and (not self.successors or len(self.successors.successors) == 0):
             self.ret(r)
 
-        # TODO: remove this once we're done plastering over the metaclass embarassment
-        return self
-
     #
     # Implement these in a subclass of SimProcedure!
     #
@@ -158,6 +155,7 @@ class SimProcedure(object):
     ADDS_EXITS = False      # set this to true if you do any control flow other than returning
     IS_SYSCALL = False      # self-explanitory.
     IS_FUNCTION = False     # set this to true if you use the self.call() control flow
+    CALLEE_CLEANUP = False  # a hack until we get callee cleanup calling conventions integrated well
 
     local_vars = ()         # if you use self.call(), set this to a list of all the local variable
                             # names in your class. They will be restored on return.
@@ -226,31 +224,6 @@ class SimProcedure(object):
         l.debug("returning argument")
         return r
 
-    def set_return_expr(self, expr):
-        """
-        Set this expression as the return value for the function.
-        If this is not an inline call, this will write the expression to the state via the
-        calling convention.
-        """
-        if isinstance(expr, (int, long)):
-            expr = self.state.se.BVV(expr, self.state.arch.bits)
-
-        if o.SIMPLIFY_RETS in self.state.options:
-            l.debug("... simplifying")
-            l.debug("... before: %s", expr)
-            expr = self.state.se.simplify(expr)
-            l.debug("... after: %s", expr)
-
-        if self.symbolic_return:
-            size = len(expr)
-            new_expr = self.state.se.Unconstrained("symbolic_return_" + self.__class__.__name__, size) #pylint:disable=maybe-no-member
-            self.state.add_constraints(new_expr == expr)
-            expr = new_expr
-
-        self.ret_expr = expr
-        if self.use_state_arguments:
-            self.cc.return_val.set_value(self.state, expr)
-
     #
     # Control Flow
     #
@@ -277,21 +250,39 @@ class SimProcedure(object):
         If this is not an inline call, grab a return address from the state and jump to it.
         If this is not an inline call, set a return expression with the calling convention.
         """
+
         if expr is not None:
-            self.set_return_expr(expr)
+            if o.SIMPLIFY_RETS in self.state.options:
+                l.debug("... simplifying")
+                l.debug("... before: %s", expr)
+                expr = self.state.se.simplify(expr)
+                l.debug("... after: %s", expr)
+
+            if self.symbolic_return:
+                size = len(expr)
+                new_expr = self.state.se.Unconstrained("symbolic_return_" + self.__class__.__name__, size) #pylint:disable=maybe-no-member
+                self.state.add_constraints(new_expr == expr)
+                expr = new_expr
+
+            self.ret_expr = expr
+
+        ret_addr = None
+        if self.use_state_arguments:
+            ret_addr = self.cc.teardown_callsite(
+                    self.state,
+                    expr,
+                    arg_types=[False]*self.num_args if self.cc.args is None else None,
+                    force_callee_cleanup=self.CALLEE_CLEANUP)
 
         if not self.should_add_successors:
             l.debug("Returning without setting exits due to 'internal' call.")
             return
 
         if self.ret_to is not None:
-            # TODO: If set ret_to, do we also want to pop an unused ret addr from the stack?
             ret_addr = self.ret_to
-        else:
-            if self.state.arch.call_pushes_ret:
-                ret_addr = self.state.stack_pop()
-            else:
-                ret_addr = self.state.registers.load(self.state.arch.lr_offset, self.state.arch.bytes)
+
+        if ret_addr is None:
+            raise SimProcedureError("No source for return address in ret() call!")
 
         self._exit_action(self.state, ret_addr)
         self.successors.add_successor(self.state, ret_addr, self.state.se.true, 'Ijk_Ret')
