@@ -542,7 +542,7 @@ class SimCC(object):
                 l.warning("Can't perform callee cleanup when I have no idea how many arguments there are! Assuming 0")
                 state.regs.sp += self.STACKARG_SP_DIFF
         else:
-            self.regs.sp += self.STACKARG_SP_DIFF
+            state.regs.sp += self.STACKARG_SP_DIFF
 
         return ret_addr
 
