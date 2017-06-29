@@ -534,7 +534,7 @@ class SimCC(object):
 
         if force_callee_cleanup or self.CALLEE_CLEANUP:
             if arg_types is not None:
-                session = self.arg_session()
+                session = self.arg_session
                 state.regs.sp += self.stack_space([session.next_arg(x) for x in arg_types])
             elif self.args is not None:
                 state.regs.sp += self.stack_space(self.args)
