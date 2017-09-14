@@ -273,6 +273,7 @@ class Unicorn(SimStatePlugin):
         Initializes the Unicorn plugin for SimuVEX. This plugin handles communication with
         UnicornEngine.
         """
+        print 'Input init unicorn!'
 
         SimStatePlugin.__init__(self)
 

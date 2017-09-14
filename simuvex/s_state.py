@@ -86,11 +86,11 @@ class SimState(ana.Storable): # pylint: disable=R0904
                     memory_backer = {'global': memory_backer}
 
                 # TODO: support permissions backer in SimAbstractMemory
-                self.register_plugin('memory', SimAbstractMemory(memory_backer=memory_backer, memory_id="mem", endness=self.arch.memory_endness))
+                self.register_plugin('memory', SimAbstractMemory(memory_backer=memory_backer, memory_id="mem"))#, endness=self.arch.memory_endness))
             elif o.FAST_MEMORY in self.options:
-                self.register_plugin('memory', SimFastMemory(memory_backer=memory_backer, memory_id="mem", endness=self.arch.memory_endness))
+                self.register_plugin('memory', SimFastMemory(memory_backer=memory_backer, memory_id="mem"))#, endness=self.arch.memory_endness))
             else:
-                self.register_plugin('memory', SimSymbolicMemory(memory_backer=memory_backer, permissions_backer=permissions_backer, memory_id="mem", endness=self.arch.memory_endness))
+                self.register_plugin('memory', SimSymbolicMemory(memory_backer=memory_backer, permissions_backer=permissions_backer, memory_id="mem"))#, endness=self.arch.memory_endness))
         if not self.has_plugin('registers'):
             if o.FAST_REGISTERS in self.options:
                 self.register_plugin('registers', SimFastMemory(memory_id="reg", endness=self.arch.register_endness))
@@ -264,7 +264,8 @@ class SimState(ana.Storable): # pylint: disable=R0904
 
     @property
     def unicorn(self):
-        return self.get_plugin('unicorn')
+        #return self.get_plugin('unicorn')
+        return None
 
     def _inspect(self, *args, **kwargs):
         if self.has_plugin('inspector'):

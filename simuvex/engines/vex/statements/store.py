@@ -1,7 +1,7 @@
 from . import SimIRStmt
-from simuvex import s_options as o
-from simuvex.s_action_object import SimActionObject
-from simuvex.s_action import SimActionData
+from .... import sim_options as o
+from ....state_plugins.sim_action_object import SimActionObject
+from ....state_plugins.sim_action import SimActionData
 
 class SimIRStmt_Store(SimIRStmt):
     def _execute(self):
@@ -10,7 +10,7 @@ class SimIRStmt_Store(SimIRStmt):
 
         # now get the value and track everything
         data = self._translate_expr(self.stmt.data)
-        expr = data.expr.to_bv()
+        expr = data.expr.raw_to_bv()
 
         # track the write
         if o.TRACK_MEMORY_ACTIONS in self.state.options:

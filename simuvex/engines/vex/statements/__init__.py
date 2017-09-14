@@ -1,5 +1,5 @@
-from simuvex.s_errors import UnsupportedIRStmtError, UnsupportedDirtyError, SimStatementError
-from simuvex import s_options as o
+from ....errors import UnsupportedIRStmtError, UnsupportedDirtyError, SimStatementError
+from .... import sim_options as o
 
 from .base import SimIRStmt
 from .noop import SimIRStmt_NoOp
@@ -18,7 +18,7 @@ from .llsc import SimIRStmt_LLSC
 from .puti import SimIRStmt_PutI
 
 import logging
-l = logging.getLogger('simuvex.vex.statements')
+l = logging.getLogger("angr.engines.vex.statements.")
 
 def translate_stmt(stmt, state):
     stmt_name = 'SimIRStmt_' +  type(stmt).__name__.split('IRStmt')[-1].split('.')[-1]
@@ -32,4 +32,4 @@ def translate_stmt(stmt, state):
         l.error("Unsupported statement type %s", (type(stmt)))
         if o.BYPASS_UNSUPPORTED_IRSTMT not in state.options:
             raise UnsupportedIRStmtError("Unsupported statement type %s" % (type(stmt)))
-        state.log.add_event('resilience', resilience_type='irstmt', stmt=type(stmt).__name__, message='unsupported IRStmt')
+        state.history.add_event('resilience', resilience_type='irstmt', stmt=type(stmt).__name__, message='unsupported IRStmt')

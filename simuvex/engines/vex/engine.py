@@ -5,18 +5,18 @@ import pyvex
 import claripy
 from archinfo import ArchARM
 
-from ... import s_options as o
-from ...plugins.inspect import BP_AFTER, BP_BEFORE
-from ...s_action import SimActionExit, SimActionObject
-from ...s_errors import (SimError, SimIRSBError, SimSolverError, SimMemoryAddressError, SimReliftException,
-                         UnsupportedDirtyError, SimTranslationError, SimEngineError, SimSegfaultError,
-                         SimMemoryError)
+from ... import sim_options as o
+from ...state_plugins.inspect import BP_AFTER, BP_BEFORE
+from ...state_plugins.sim_action import SimActionExit, SimActionObject
+from ...errors import (SimError, SimIRSBError, SimSolverError, SimMemoryAddressError, SimReliftException,
+                       UnsupportedDirtyError, SimTranslationError, SimEngineError, SimSegfaultError,
+                       SimMemoryError)
 from ..engine import SimEngine
 from .statements import translate_stmt
 from .expressions import translate_expr
 
 import logging
-l = logging.getLogger("simuvex.engines.vex.engine")
+l = logging.getLogger("angr.engines.vex.engine")
 
 #pylint: disable=arguments-differ
 
@@ -106,7 +106,7 @@ class SimEngineVEX(SimEngine):
     def _process(self, state, successors, irsb=None, skip_stmts=0, last_stmt=99999999, whitelist=None, insn_bytes=None, size=None, num_inst=None, traceflags=0, thumb=False, opt_level=None):
         successors.sort = 'IRSB'
         successors.description = 'IRSB'
-        state.scratch.executed_block_count = 1
+        state.history.recent_block_count = 1
         state.scratch.guard = claripy.true
         state.scratch.sim_procedure = None
         addr = successors.addr
@@ -126,6 +126,18 @@ class SimEngineVEX(SimEngine):
 
             if irsb.size == 0:
                 raise SimIRSBError("Empty IRSB passed to SimIRSB.")
+
+            # check permissions, are we allowed to execute here? Do we care?
+            if o.STRICT_PAGE_ACCESS in state.options:
+                try:
+                    perms = state.memory.permissions(addr)
+                except SimMemoryError:
+                    raise SimSegfaultError(addr, 'exec-miss')
+                else:
+                    if not perms.symbolic:
+                        perms = state.se.eval(perms)
+                        if not perms & 4 and o.ENABLE_NX in state.options:
+                            raise SimSegfaultError(addr, 'non-executable')
 
             state.scratch.tyenv = irsb.tyenv
             state.scratch.irsb = irsb
@@ -152,7 +164,7 @@ class SimEngineVEX(SimEngine):
                 raise
             else:
                 break
-        state._inspect('irsb', BP_AFTER)
+        state._inspect('irsb', BP_AFTER, address=addr)
 
         successors.processed = True
 
@@ -209,7 +221,7 @@ class SimEngineVEX(SimEngine):
                     retval_size = state.scratch.tyenv.sizeof(stmt.tmp)
                     retval = state.se.Unconstrained("unsupported_dirty_%s" % stmt.cee.name, retval_size)
                     state.scratch.store_tmp(stmt.tmp, retval, None, None)
-                state.log.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
+                state.history.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
                                     message='unsupported Dirty call')
             except (SimSolverError, SimMemoryAddressError):
                 l.warning("%#x hit an error while analyzing statement %d", successors.addr, stmt_idx, exc_info=True)
@@ -229,14 +241,14 @@ class SimEngineVEX(SimEngine):
 
             try:
                 next_expr = translate_expr(irsb.next, state)
-                state.log.extend_actions(next_expr.actions)
+                state.history.extend_actions(next_expr.actions)
 
                 if o.TRACK_JMP_ACTIONS in state.options:
                     target_ao = SimActionObject(
                         next_expr.expr,
                         reg_deps=next_expr.reg_deps(), tmp_deps=next_expr.tmp_deps()
                     )
-                    state.log.add_action(SimActionExit(state, target_ao, exit_type=SimActionExit.DEFAULT))
+                    state.history.add_action(SimActionExit(state, target_ao, exit_type=SimActionExit.DEFAULT))
 
                 successors.add_successor(state, next_expr.expr, state.scratch.guard, irsb.jumpkind,
                                          exit_stmt_idx='default', exit_ins_addr=state.scratch.ins_addr)
@@ -252,7 +264,7 @@ class SimEngineVEX(SimEngine):
 
         # do return emulation and calless stuff
         for exit_state in list(successors.all_successors):
-            exit_jumpkind = exit_state.scratch.jumpkind
+            exit_jumpkind = exit_state.history.jumpkind
             if exit_jumpkind is None: exit_jumpkind = ""
 
             if o.CALLLESS in state.options and exit_jumpkind == "Ijk_Call":
@@ -263,7 +275,7 @@ class SimEngineVEX(SimEngine):
                 exit_state.scratch.target = exit_state.se.BVV(
                     successors.addr + irsb.size, exit_state.arch.bits
                 )
-                exit_state.scratch.jumpkind = "Ijk_Ret"
+                exit_state.history.jumpkind = "Ijk_Ret"
                 exit_state.regs.ip = exit_state.scratch.target
 
             elif o.DO_RET_EMULATION in exit_state.options and \
@@ -309,7 +321,7 @@ class SimEngineVEX(SimEngine):
         # process it!
         s_stmt = translate_stmt(stmt, state)
         if s_stmt is not None:
-            state.log.extend_actions(s_stmt.actions)
+            state.history.extend_actions(s_stmt.actions)
 
         # for the exits, put *not* taking the exit on the list of constraints so
         # that we can continue on. Otherwise, add the constraints
@@ -380,7 +392,7 @@ class SimEngineVEX(SimEngine):
 
         # phase 1: parameter defaults
         if addr is None:
-            addr = state.se.any_int(state._ip)
+            addr = state.se.eval(state._ip)
         if size is not None:
             size = min(size, VEX_IRSB_MAX_SIZE)
         if size is None:
@@ -401,19 +413,7 @@ class SimEngineVEX(SimEngine):
                 if state and o.OPTIMIZE_IR in state.options:
                     state.options.remove(o.OPTIMIZE_IR)
 
-        # phase 2: permissions
-        if state and o.STRICT_PAGE_ACCESS in state.options:
-            try:
-                perms = state.memory.permissions(addr)
-            except (KeyError, SimMemoryError):  # TODO: can this still raise KeyError?
-                raise SimSegfaultError(addr, 'exec-miss')
-            else:
-                if not perms.symbolic:
-                    perms = perms.args[0]
-                    if not perms & 4:
-                        raise SimSegfaultError(addr, 'non-executable')
-
-        # phase 3: thumb normalization
+        # phase 2: thumb normalization
         thumb = int(thumb)
         if isinstance(arch, ArchARM):
             if addr % 2 == 1:
@@ -424,7 +424,7 @@ class SimEngineVEX(SimEngine):
             l.error("thumb=True passed on non-arm architecture!")
             thumb = 0
 
-        # phase 4: check cache
+        # phase 3: check cache
         cache_key = (addr, insn_bytes, size, num_inst, thumb, opt_level)
         if self._use_cache and cache_key in self._block_cache:
             self._cache_hit_count += 1
@@ -444,7 +444,7 @@ class SimEngineVEX(SimEngine):
         else:
             self._cache_miss_count += 1
 
-        # phase 5: get bytes
+        # phase 4: get bytes
         if insn_bytes is not None:
             buff, size = insn_bytes, len(insn_bytes)
         else:
@@ -453,7 +453,7 @@ class SimEngineVEX(SimEngine):
         if not buff or size == 0:
             raise SimEngineError("No bytes in memory for block starting at %#x." % addr)
 
-        # phase 6: call into pyvex
+        # phase 5: call into pyvex
         l.debug("Creating pyvex.IRSB of arch %s at %#x", arch.name, addr)
         try:
             for subphase in xrange(2):
@@ -499,7 +499,18 @@ class SimEngineVEX(SimEngine):
         buff, size = "", 0
 
         # Load from the clemory if we can
-        if not self._support_selfmodifying_code or not state:
+        smc = self._support_selfmodifying_code
+        if state:
+            try:
+                p = state.memory.permissions(addr)
+                if p.symbolic:
+                    smc = True
+                else:
+                    smc = claripy.is_true(p & 2 != 0)
+            except: # pylint: disable=bare-except
+                smc = True # I don't know why this would ever happen, we checked this right?
+
+        if not smc or not state:
             try:
                 buff, size = clemory.read_bytes_c(addr)
             except KeyError:
@@ -508,7 +519,7 @@ class SimEngineVEX(SimEngine):
         # If that didn't work, try to load from the state
         if size == 0 and state:
             if addr in state.memory and addr + max_size - 1 in state.memory:
-                buff = state.se.any_str(state.memory.load(addr, max_size))
+                buff = state.se.eval(state.memory.load(addr, max_size, inspect=False), cast_to=str)
                 size = max_size
             else:
                 good_addrs = []
@@ -518,7 +529,7 @@ class SimEngineVEX(SimEngine):
                     else:
                         break
 
-                buff = ''.join(chr(state.se.any_int(state.memory.load(i, 1, inspect=False))) for i in good_addrs)
+                buff = ''.join(chr(state.se.eval(state.memory.load(i, 1, inspect=False))) for i in good_addrs)
                 size = len(buff)
 
         size = min(max_size, size)

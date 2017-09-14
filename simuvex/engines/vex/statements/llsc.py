@@ -1,8 +1,8 @@
-from pyvex import type_sizes
+from pyvex import get_type_size
 from . import SimIRStmt
 
 import logging
-l = logging.getLogger('simuvex.vex.statements.llsc')
+l = logging.getLogger("angr.engines.vex.statements.llsc")
 
 # TODO: memory read SimActions
 # TODO: tmp write SimActions
@@ -14,7 +14,7 @@ class SimIRStmt_LLSC(SimIRStmt):
 
         if self.stmt.storedata is None:
             # it's a load-linked
-            load_size = type_sizes[self.state.scratch.tyenv.lookup(self.stmt.result)]/8
+            load_size = get_type_size(self.state.scratch.tyenv.lookup(self.stmt.result))/8
             data = self.state.memory.load(addr.expr, load_size, endness=self.stmt.endness)
             self.state.scratch.store_tmp(self.stmt.result, data, addr.reg_deps(), addr.tmp_deps())
         else:
@@ -44,6 +44,6 @@ class SimIRStmt_LLSC(SimIRStmt):
             self.state.memory.store(addr.expr, store_data.expr, action=a)
             self.state.scratch.store_tmp(self.stmt.result, result, addr.reg_deps() | store_data.reg_deps(), addr.tmp_deps() | store_data.tmp_deps())
 
-from simuvex.s_action_object import SimActionObject
-from simuvex.s_action import SimActionData
-from simuvex import s_options as o
+from ....state_plugins.sim_action_object import SimActionObject
+from ....state_plugins.sim_action import SimActionData
+from .... import sim_options as o

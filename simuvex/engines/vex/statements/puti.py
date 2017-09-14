@@ -1,8 +1,8 @@
 from . import SimIRStmt
 from .. import size_bytes
-from simuvex import s_options as o
-from simuvex.s_action_object import SimActionObject
-from simuvex.s_action import SimActionData
+from .... import sim_options as o
+from ....state_plugins.sim_action_object import SimActionObject
+from ....state_plugins.sim_action import SimActionData
 
 class SimIRStmt_PutI(SimIRStmt):
     def _execute(self):
@@ -10,7 +10,7 @@ class SimIRStmt_PutI(SimIRStmt):
 
         # value to put
         data = self._translate_expr(self.stmt.data)
-        expr = data.expr.to_bv()
+        expr = data.expr.raw_to_bv()
 
         # reg array data
         self.ix = self._translate_expr(self.stmt.ix)

@@ -10,7 +10,7 @@ import itertools
 import operator
 
 import logging
-l = logging.getLogger("simuvex.vex.irop")
+l = logging.getLogger("angr.engines.vex.irop")
 
 import pyvex
 import claripy
@@ -70,7 +70,7 @@ def op_attrs(p):
 
         return attrs
 
-all_operations = pyvex.enum_IROp_fromstr.keys()
+all_operations = pyvex.irop_enums_to_ints.keys()
 operations = { }
 classified = set()
 unclassified = set()
@@ -187,7 +187,7 @@ class SimIROp(object):
 
         # determine the output size
         #pylint:disable=no-member
-        self._output_type = pyvex.typeOfIROp(name)
+        self._output_type = pyvex.get_op_retty(name)
         #pylint:enable=no-member
         self._output_size_bits = size_bits(self._output_type)
         l.debug("... VEX says the output size should be %s", self._output_size_bits)
@@ -206,7 +206,6 @@ class SimIROp(object):
             conversions[(self._from_type, self._from_signed, self._to_type, self._to_signed)].append(self)
 
         if len({self._vector_type, self._from_type, self._to_type} & {'F', 'D'}) != 0:
-            # print self.op_attrs
             self._float = True
 
             if len({self._vector_type, self._from_type, self._to_type} & {'D'}) != 0:
@@ -346,15 +345,15 @@ class SimIROp(object):
             raise SimOperationError("IROp needs all args as claripy expressions")
 
         if not self._float:
-            args = tuple(arg.to_bv() for arg in args)
+            args = tuple(arg.raw_to_bv() for arg in args)
 
         try:
             return self.extend_size(self._calculate(args))
+        except (ZeroDivisionError, claripy.ClaripyZeroDivisionError):
+            raise SimZeroDivisionException("divide by zero!")
         except (TypeError, ValueError, SimValueError, claripy.ClaripyError):
             e_type, value, traceback = sys.exc_info()
             raise SimOperationError, ("%s._calculate() raised exception" % self.name, e_type, value), traceback
-        except ZeroDivisionError:
-            raise SimOperationError("divide by zero!")
 
     def extend_size(self, o):
         cur_size = o.size()
@@ -432,7 +431,7 @@ class SimIROp(object):
 
     def _op_float_op_just_low(self, args):
         chopped = [arg[(self._vector_size - 1):0].raw_to_fp() for arg in args]
-        result = getattr(claripy, 'fp' + self._generic_name)(claripy.fp.RM.default(), *chopped).to_bv()
+        result = getattr(claripy, 'fp' + self._generic_name)(claripy.fp.RM.default(), *chopped).raw_to_bv()
         return claripy.Concat(args[0][(args[0].length - 1):self._vector_size], result)
 
     def _op_concat(self, args):
@@ -711,14 +710,14 @@ class SimIROp(object):
         rm = self._translate_rm(args[0] if rm_exists else claripy.BVV(0, 32))
         arg = args[1 if rm_exists else 0]
 
-        return arg.signed_to_fp(rm, claripy.fp.FSort.from_size(self._output_size_bits))
+        return arg.val_to_fp(claripy.fp.FSort.from_size(self._output_size_bits), signed=True, rm=rm)
 
     def _op_fp_to_fp(self, args):
         rm_exists = self._from_size != 32 or self._to_size != 64
         rm = self._translate_rm(args[0] if rm_exists else claripy.BVV(0, 32))
         arg = args[1 if rm_exists else 0].raw_to_fp()
 
-        return arg.raw_to_fp().to_fp(rm, claripy.fp.FSort.from_size(self._output_size_bits))
+        return arg.raw_to_fp().to_fp(claripy.fp.FSort.from_size(self._output_size_bits), rm=rm)
 
     def _op_fp_to_int(self, args):
         rm = self._translate_rm(args[0])
@@ -739,7 +738,7 @@ class SimIROp(object):
 
     def _op_fgeneric_Reinterp(self, args):
         if self._to_type == 'I':
-            return args[0].to_bv()
+            return args[0].raw_to_bv()
         elif self._to_type == 'F':
             return args[0].raw_to_fp()
         else:
@@ -770,12 +769,56 @@ class SimIROp(object):
             rounded_bv = claripy.fpToSBV(rm, args[1].raw_to_fp(), args[1].length)
             return claripy.fpToFP(claripy.fp.RM_RNE, rounded_bv, claripy.fp.FSort.from_size(args[1].length))
 
+    def _op_generic_pack_StoU_saturation(self, args, src_size, dst_size):
+        """
+        Generic pack with unsigned saturation.
+        Split args in chunks of src_size signed bits and in pack them into unsigned saturated chunks of dst_size bits.
+        Then chunks are concatenated resulting in a BV of len(args)*dst_size/src_size*len(args[0]) bits.
+        """
+        if src_size <= 0 or dst_size <= 0:
+            raise SimOperationError("Can't pack from or to zero or negative size" % self.name)
+        result = None
+        max_value = claripy.BVV(-1, dst_size).zero_extend(src_size - dst_size) #max value for unsigned saturation
+        min_value = claripy.BVV(0, src_size) #min unsigned value always 0
+        for v in args:
+            for src_value in v.chop(src_size):
+                dst_value = self._op_generic_StoU_saturation(src_value, min_value, max_value)
+                dst_value = dst_value.zero_extend(dst_size - src_size)
+                if result is None:
+                    result = dst_value
+                else:
+                    result = self._op_concat((result, dst_value))
+        return result
+
+    def _op_generic_StoU_saturation(self, value, min_value, max_value): #pylint:disable=no-self-use
+        """
+        Return unsigned saturated BV from signed BV.
+        Min and max value should be unsigned.
+        """
+        return claripy.If(
+            claripy.SGT(value, max_value),
+            max_value,
+            claripy.If(claripy.SLT(value, min_value), min_value, value))
+
     def _op_Iop_64x4toV256(self, args) :
         return self._op_concat(args)
 
+    def _op_Iop_QNarrowBin16Sto8Ux16(self, args):
+        """
+        PACKUSWB Pack with Unsigned Saturation.Two 128 bits operands version.
+        VPACKUSWB Pack with Unsigned Saturation.Three 128 bits operands version.
+        """
+        return self._op_generic_pack_StoU_saturation(args, 16, 8)
+
+    def _op_Iop_QNarrowBin16Sto8Ux8(self, args):
+        """
+        PACKUSWB Pack with Unsigned Saturation.Two 64 bits operands version.
+        """
+        return self._op_generic_pack_StoU_saturation(args, 16, 8)
+
     #def _op_Iop_Yl2xF64(self, args):
     #   rm = self._translate_rm(args[0])
-    #   arg2_bv = args[2].to_bv()
+    #   arg2_bv = args[2].raw_to_bv()
     #   # IEEE754 double looks like this:
     #   # SEEEEEEEEEEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     #   # thus, we extract the exponent bits, re-bias them, then
@@ -784,7 +827,7 @@ class SimIROp(object):
     #   # = x - 1 for 1.0 <= x < 2.0 to account for the mantissa.
 
     #   # the bias for doubles is 1023
-    #   arg2_exp = (arg2_bv[62:52] - 1023).signed_to_fp(rm, claripy.fp.FSORT_DOUBLE)
+    #   arg2_exp = (arg2_bv[62:52] - 1023).val_to_fp(claripy.fp.FSORT_DOUBLE, signed=True, rm=rm)
     #   arg2_mantissa = claripy.Concat(claripy.BVV(int('001111111111', 2), 12), arg2_bv[51:0]).raw_to_fp()
     #   # this is the hacky approximation:
     #   log2_arg2_mantissa = claripy.fpSub(rm, arg2_mantissa, claripy.FPV(1.0, claripy.fp.FSORT_DOUBLE))
@@ -839,33 +882,47 @@ class SimIROp(object):
 #
 # Op Handler
 #
-#from . import old_irop
+
 def translate(state, op, s_args):
     if op in operations:
+        return translate_inner(state, operations[op], s_args)
+    elif options.EXTENDED_IROP_SUPPORT in state.options:
         try:
-            irop = operations[op]
-            if irop._float and not options.SUPPORT_FLOATING_POINT in state.options:
-                raise UnsupportedIROpError("floating point support disabled")
-            return irop.calculate( *s_args)
-        except ZeroDivisionError:
-            if state.mode == 'static' and len(s_args) == 2 and state.se.is_true(s_args[1] == 0):
-                # Monkeypatch the dividend to another value instead of 0
-                s_args[1] = state.se.BVV(1, s_args[1].size())
-                return operations[op].calculate( *s_args)
-            else:
-                raise
+            l.info("Using our imagination for op " + op)
+            attrs = op_attrs(op)
+            if attrs is None:
+                raise SimOperationError
+            irop = SimIROp(op, **attrs)
         except SimOperationError:
-            l.warning("IROp error (for operation %s)", op, exc_info=True)
-            if options.BYPASS_ERRORED_IROP in state.options:
-                return state.se.Unconstrained("irop_error", operations[op]._output_size_bits)
-            else:
-                raise
+            l.info("...failed to make op")
+        else:
+            operations[op] = irop
+            return translate_inner(state, irop, s_args)
 
     l.error("Unsupported operation: %s", op)
     raise UnsupportedIROpError("Unsupported operation: %s" % op)
 
+def translate_inner(state, irop, s_args):
+    try:
+        if irop._float and not options.SUPPORT_FLOATING_POINT in state.options:
+            raise UnsupportedIROpError("floating point support disabled")
+        return irop.calculate(*s_args)
+    except SimZeroDivisionException:
+        if state.mode == 'static' and len(s_args) == 2 and state.se.is_true(s_args[1] == 0):
+            # Monkeypatch the dividend to another value instead of 0
+            s_args[1] = state.se.BVV(1, s_args[1].size())
+            return irop.calculate(*s_args)
+        else:
+            raise
+    except SimOperationError:
+        l.warning("IROp error (for operation %s)", irop.name, exc_info=True)
+        if options.BYPASS_ERRORED_IROP in state.options:
+            return state.se.Unconstrained("irop_error", irop._output_size_bits)
+        else:
+            raise
+
 from . import size_bits
-from simuvex.s_errors import UnsupportedIROpError, SimOperationError, SimValueError
-from simuvex import s_options as options
+from ...errors import UnsupportedIROpError, SimOperationError, SimValueError, SimZeroDivisionException
+from ... import sim_options as options
 
 make_operations()
