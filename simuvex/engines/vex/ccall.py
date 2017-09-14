@@ -1,6 +1,6 @@
 import claripy
 import logging
-l = logging.getLogger("angr.engines.vex.ccall")
+l = logging.getLogger("simuvex.vex.ccall")
 #l.setLevel(logging.DEBUG)
 
 # pylint: disable=R0911
@@ -1687,5 +1687,5 @@ def _get_nbits(cc_str):
         nbits = 64
     return nbits
 
-from ...errors import SimError, SimCCallError
-from ...sim_options import USE_SIMPLIFIED_CCALLS
+from ...s_errors import SimError, SimCCallError
+from ...s_options import USE_SIMPLIFIED_CCALLS

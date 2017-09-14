@@ -36,5 +36,5 @@ from . import ccall
 
 from .irop import operations
 
-from ...errors import SimExpressionError, UnsupportedIRExprError
-from ... import sim_options as options
+from simuvex.s_errors import SimExpressionError, UnsupportedIRExprError
+from simuvex import s_options as options

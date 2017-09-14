@@ -1,7 +1,7 @@
 from . import SimIRStmt
 from .. import dirty
-from .... import sim_options as o
-from ....errors import UnsupportedDirtyError
+from simuvex import s_options as o
+from simuvex.s_errors import UnsupportedDirtyError
 
 import logging
 l = logging.getLogger("angr.engines.vex.statements.dirty")

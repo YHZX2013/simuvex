@@ -3,9 +3,9 @@ import claripy
 import logging
 import time
 
-from ... import sim_options as o
+from simuvex import s_options as o
 
-l = logging.getLogger("angr.engines.vex.dirty")
+l = logging.getLogger("simuvex.vex.dirty")
 
 
 #####################

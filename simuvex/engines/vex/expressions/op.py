@@ -3,9 +3,9 @@ from pyvex.expr import RdTmp, Get
 
 from .base import SimIRExpr
 from ..irop import translate
-from .... import sim_options as o
-from ....errors import UnsupportedIROpError, SimOperationError
-from ....state_plugins.sim_action import SimActionOperation, SimActionObject
+from simuvex import s_options as o
+from simuvex.s_action import SimActionData 
+from simuvex.s_errors import SimUninitializedAccessError, UnsupportedIROpError
 
 class SimIRExpr_Op(SimIRExpr):
     def _execute(self):
@@ -28,7 +28,7 @@ class SimIRExpr_Op(SimIRExpr):
 
         except UnsupportedIROpError as e:
             if o.BYPASS_UNSUPPORTED_IROP in self.state.options:
-                self.state.history.add_event('resilience', resilience_type='irop', op=self._expr.op, message='unsupported IROp')
+                self.state.log.add_event('resilience', resilience_type='irop', op=self._expr.op, message='unsupported IROp')
                 if o.UNSUPPORTED_BYPASS_ZERO_DEFAULT in self.state.options:
                     self.expr = self.state.se.BVV(0, self.size_bits())
                 else:
@@ -41,7 +41,7 @@ class SimIRExpr_Op(SimIRExpr):
             e.bbl_addr = self.state.scratch.bbl_addr
             e.stmt_idx = self.state.scratch.stmt_idx
             e.ins_addr = self.state.scratch.ins_addr
-            e.executed_instruction_count = self.state.history.recent_instruction_count
+            e.executed_instruction_count = self.state.scratch.executed_instruction_count
             raise
 
 class SimIRExpr_Unop(SimIRExpr_Op): pass

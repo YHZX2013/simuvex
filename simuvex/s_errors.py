@@ -1,16 +1,20 @@
-#!/usr/bin/env python
+#
+# Simulation errors
+#
 
 class SimError(Exception):
     bbl_addr = None
     stmt_idx = None
     ins_addr = None
     executed_instruction_count = None
+    guard = None
 
     def record_state(self, state):
         self.bbl_addr = state.scratch.bbl_addr
         self.stmt_idx = state.scratch.stmt_idx
         self.ins_addr = state.scratch.ins_addr
-        self.executed_instruction_count = state.scratch.executed_instruction_count
+        self.executed_instruction_count = state.history.recent_instruction_count
+        self.guard = state.scratch.guard
         return self
 
 #
@@ -49,12 +53,6 @@ class SimFileError(SimMemoryError):
 
 class SimPosixError(SimStateError):
     pass
-
-class SimSegfaultError(SimMemoryError):
-    def __init__(self, addr, reason):
-        self.addr = addr
-        self.reason = reason
-        super(SimSegfaultError, self).__init__('%#x, %s' % (addr, reason))
 
 #
 # Error class during VEX parsing
@@ -204,3 +202,36 @@ class SimUnicornError(SimError):
 class SimUnicornSymbolic(SimError):
     pass
 
+
+#
+# Call-stack Errors
+#
+
+class SimEmptyCallStackError(SimError):
+    pass
+
+#
+# Errors that may be handled by exception handling
+#
+
+class SimException(SimError):
+    pass
+
+class SimSegfaultException(SimException, SimMemoryError):
+    def __init__(self, addr, reason, original_addr=None):
+        self.addr = addr
+        self.reason = reason
+        self.original_addr = original_addr
+        super(SimSegfaultError, self).__init__('%#x (%s)' % (addr, reason))
+
+    def __repr__(self):
+        return 'SimSegfaultException(%#x (%s%s)' % (
+            self.addr,
+            self.reason,
+            (', original %s' % self.original_addr.__repr__(max_depth=3)) if self.original_addr is not None else ''
+        )
+
+SimSegfaultError = SimSegfaultException
+
+class SimZeroDivisionException(SimException, SimOperationError):
+    pass

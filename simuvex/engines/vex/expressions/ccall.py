@@ -1,8 +1,8 @@
 from .base import SimIRExpr
 from .. import size_bits
-from .... import sim_options as o
+from simuvex import s_options as o
 from .. import ccall
-from ....errors import SimCCallError, UnsupportedCCallError
+from simuvex.s_errors import SimCCallError, UnsupportedCCallError
 
 import logging
 l = logging.getLogger("angr.engines.vex.expressions.ccall")
@@ -25,7 +25,7 @@ class SimIRExpr_CCall(SimIRExpr):
             except SimCCallError:
                 if o.BYPASS_ERRORED_IRCCALL not in self.state.options:
                     raise
-                self.state.history.add_event('resilience', resilience_type='ccall', callee=self._expr.callee.name, message='ccall raised SimCCallError')
+                self.state.log.add_event('resilience', resilience_type='ccall', callee=self._expr.callee.name, message='ccall raised SimCCallError')
                 self.expr = self.state.se.Unconstrained("errored_%s" % self._expr.callee.name, size_bits(self._expr.ret_type))
         else:
             l.error("Unsupported CCall %s", self._expr.callee.name)
@@ -34,6 +34,6 @@ class SimIRExpr_CCall(SimIRExpr):
                     self.expr = self.state.se.BVV(0, size_bits(self._expr.ret_type))
                 else:
                     self.expr = self.state.se.Unconstrained("unsupported_%s" % self._expr.callee.name, size_bits(self._expr.ret_type))
-                self.state.history.add_event('resilience', resilience_type='ccall', callee=self._expr.callee.name, message='unsupported ccall')
+                self.state.log.add_event('resilience', resilience_type='ccall', callee=self._expr.callee.name, message='unsupported ccall')
             else:
                 raise UnsupportedCCallError("Unsupported CCall %s" % self._expr.callee.name)

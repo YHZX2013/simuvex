@@ -10,7 +10,7 @@ import itertools
 import operator
 
 import logging
-l = logging.getLogger("angr.engines.vex.irop")
+l = logging.getLogger("simuvex.vex.irop")
 
 import pyvex
 import claripy
@@ -345,7 +345,7 @@ class SimIROp(object):
             raise SimOperationError("IROp needs all args as claripy expressions")
 
         if not self._float:
-            args = tuple(arg.raw_to_bv() for arg in args)
+            args = tuple(arg.to_bv() for arg in args)
 
         try:
             return self.extend_size(self._calculate(args))
@@ -922,7 +922,7 @@ def translate_inner(state, irop, s_args):
             raise
 
 from . import size_bits
-from ...errors import UnsupportedIROpError, SimOperationError, SimValueError, SimZeroDivisionException
-from ... import sim_options as options
+from simuvex.s_errors import UnsupportedIROpError, SimOperationError, SimValueError, SimZeroDivisionException
+from simuvex import s_options as options
 
 make_operations()
