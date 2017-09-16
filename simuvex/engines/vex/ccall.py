@@ -31,8 +31,7 @@ def boolean_extend(state, O, a, b, size):
     return state.se.If(O(a, b), state.se.BVV(1, size), state.se.BVV(0, size))
 
 def flag_concretize(state, flag):
-    return state.se.eval(flag)
-    #return state.se.eval_one(flag)
+    return state.se.exactly_n_int(flag, 1)[0]
 
 ##################
 ### x86* data ###
