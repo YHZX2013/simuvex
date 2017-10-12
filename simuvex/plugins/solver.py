@@ -347,6 +347,66 @@ class SimSolver(SimStatePlugin):
         """
         return self._solver.eval_to_ast(e, n, extra_constraints=self._adjust_constraint_list(extra_constraints), exact=exact)
 
+    def eval_upto(self, e, n, cast_to=int, **kwargs):
+        """
+        Evaluate an expression, using the solver if necessary. Returns primitives as specified by the `cast_to`
+        parameter. Only certain primitives are supported, check the implementation of `_cast_to` to see which ones.
+
+        :param e: the expression
+        :param n: the number of desired solutions
+        :param extra_constraints: extra constraints to apply to the solver
+        :param exact: if False, returns approximate solutions
+        :param cast_to: A type to cast the resulting values to
+        :return: a tuple of the solutions, in the form of Python primitives
+        :rtype: tuple
+        """
+        concrete_val = _concrete_value(e)
+        if concrete_val is not None:
+            return [self._cast_to(e, concrete_val, cast_to)]
+
+        cast_vals = [self._cast_to(e, v, cast_to) for v in self._eval(e, n, **kwargs)]
+        if len(cast_vals) == 0:
+            raise SimUnsatError('Not satisfiable: %s, expected up to %d solutions' % (e.shallow_repr(), n))
+        return cast_vals
+
+    @staticmethod
+    def _cast_to(e, solution, cast_to):
+        """
+        Casts a solution for the given expression to type `cast_to`.
+
+        :param e: The expression `value` is a solution for
+        :param value: The solution to be cast
+        :param cast_to: The type `value` should be cast to. Must be one of the currently supported types (str|int)
+        :raise ValueError: If cast_to is a currently unsupported cast target.
+        :return: The value of `solution` cast to type `cast_to`
+        """
+        if cast_to is str:
+            if len(e) == 0:
+                return ""
+            return '{:x}'.format(solution).zfill(len(e)/4).decode('hex')
+
+        if cast_to is not int:
+            raise ValueError("cast_to parameter {!r} is not a valid cast target, currently supported are only int and str!".format(cast_to))
+
+        return solution
+
+    @concrete_path_tuple
+    @timed_function
+    @ast_stripping_decorator
+    @error_converter
+    def _eval(self, e, n, extra_constraints=(), exact=None):
+        """
+        Evaluate an expression, using the solver if necessary. Returns primitives.
+
+        :param e: the expression
+        :param n: the number of desired solutions
+        :param extra_constraints: extra constraints to apply to the solver
+        :param exact: if False, returns approximate solutions
+        :return: a tuple of the solutions, in the form of Python primitives
+        :rtype: tuple
+        """
+        return self._solver.eval(e, n, extra_constraints=self._adjust_constraint_list(extra_constraints), exact=exact)
+
     @concrete_path_tuple
     @timed_function
     @ast_stripping_decorator
@@ -363,6 +423,42 @@ class SimSolver(SimStatePlugin):
         :rtype: tuple
         """
         return self._solver.eval(e, n, extra_constraints=self._adjust_constraint_list(extra_constraints), exact=exact)
+
+    def eval_one(self, e, **kwargs):
+        """
+        Evaluate an expression to get the only possible solution. Errors if either no or more than one solution is
+        returned. A kwarg parameter `default` can be specified to be returned instead of failure!
+
+        :param e: the expression to get a solution for
+        :param default: A value can be passed as a kwarg here. It will be returned in case of failure.
+        :param kwargs: Any additional kwargs will be passed down to `eval_upto`
+        :raise SimUnsatError: if no solution could be found satisfying the given constraints
+        :raise SimValueError: if more than one solution was found to satisfy the given constraints
+        :return: The value for `e`
+        """
+        try:
+            return self.eval_exact(e, 1, **{k: v for (k, v) in kwargs.iteritems() if k != 'default'})[0]
+        except (SimUnsatError, SimValueError):
+            if 'default' in kwargs:
+                return kwargs.pop('default')
+            raise
+
+    def eval_exact(self, e, n, **kwargs):
+        """
+        Evaluate an expression to get exactly the `n` possible solutions. Errors if any number of solutions other
+        than `n` was found to exist.
+
+        :param e: the expression to get a solution for
+        :param n: the inclusive lower limit on the number of solutions
+        :param kwargs: Any additional kwargs will be passed down to `eval_upto`
+        :raise SimUnsatError: if no solution could be found satisfying the given constraints
+        :raise SimValueError: if any number of solutions other than `n` were found to satisfy the given constraints
+        :return: The solutions for `e`
+        """
+        r = self.eval_upto(e, n + 1, **kwargs)
+        if len(r) != n:
+            raise SimValueError("Concretized %d values (must be exactly %d) in eval_exact" % (len(r), n))
+        return r
 
     @concrete_path_scalar
     @timed_function
