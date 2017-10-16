@@ -4,8 +4,8 @@ from pyvex.expr import RdTmp, Get
 from .base import SimIRExpr
 from ..irop import translate
 from simuvex import s_options as o
-from simuvex.s_action import SimActionData 
-from simuvex.s_errors import SimUninitializedAccessError, UnsupportedIROpError
+from simuvex.s_action import SimActionData, SimActionOperation, SimActionObject
+from simuvex.s_errors import SimUninitializedAccessError, UnsupportedIROpError, UnsupportedIROpError, SimOperationError
 
 class SimIRExpr_Op(SimIRExpr):
     def _execute(self):
