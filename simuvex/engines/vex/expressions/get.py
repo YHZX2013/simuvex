@@ -1,12 +1,11 @@
 from .base import SimIRExpr
-from .. import size_bytes, size_bits
 from simuvex import s_options as o
 from simuvex.s_action import SimActionData 
 
 class SimIRExpr_Get(SimIRExpr):
     def _execute(self):
-        size = size_bytes(self._expr.type)
-        size_in_bits = size_bits(self._expr.type)
+        size = self.size_bytes(self._expr.type)
+        size_in_bits = self.size_bits(self._expr.type)
         self.type = self._expr.type
 
         # get it!
