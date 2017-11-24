@@ -231,6 +231,10 @@ class SimState(ana.Storable): # pylint: disable=R0904
         return self.get_plugin('scratch')
 
     @property
+    def history(self):
+        return self.get_plugin('history')
+
+    @property
     def posix(self):
         return self.get_plugin('posix')
 
@@ -253,6 +257,10 @@ class SimState(ana.Storable): # pylint: disable=R0904
     @property
     def gdb(self):
         return self.get_plugin('gdb')
+
+    @property
+    def globals(self):
+        return self.get_plugin('globals')
 
     @property
     def procedure_data(self):
