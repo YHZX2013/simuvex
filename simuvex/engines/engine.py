@@ -1,3 +1,4 @@
+import sys
 import logging
 
 l = logging.getLogger('simuvex.engines.engine')
@@ -26,22 +27,45 @@ class SimEngine(object):
         """
         inline = kwargs.pop('inline', False)
         force_addr = kwargs.pop('force_addr', None)
-        addr = state.se.any_int(state._ip) if force_addr is None else force_addr
+        addr = state.se.eval(state._ip) if force_addr is None else force_addr
 
         # make a copy of the initial state for actual processing, if needed
         if not inline and o.COW_STATES in state.options:
             new_state = state.copy()
         else:
             new_state = state
+        # enforce this distinction
+        old_state = state
+        del state
 
-        # clear the log (unless we're inlining)
-        if not inline:
-            new_state.log.clear()
-            new_state.scratch.clear()
-            new_state.scratch.bbl_addr = addr
+        # we have now officially begun the stepping process! now is where we "cycle" a state's
+        # data - move the "present" into the "past" by pushing an entry on the history stack.
+        # nuance: make sure to copy from the PREVIOUS state to the CURRENT one
+        # to avoid creating a dead link in the history, messing up the statehierarchy
+        new_state.register_plugin('history', old_state.history.make_child())
+        new_state.history.recent_bbl_addrs.append(addr)
+        new_state.scratch.executed_pages_set = {addr & ~0xFFF}
 
-        successors = SimSuccessors(addr, state)
-        self._process(new_state, successors, *args, **kwargs)
+        successors = SimSuccessors(addr, old_state)
+
+        new_state._inspect('engine_process', when=BP_BEFORE, sim_engine=self, sim_successors=successors, address=addr)
+        successors = new_state._inspect_getattr('sim_successors', successors)
+        try:
+            self._process(new_state, successors, *args, **kwargs)
+        except SimException:
+            if o.EXCEPTION_HANDLING not in old_state.options:
+                raise
+            old_state.project.simos.handle_exception(successors, self, *sys.exc_info())
+
+        new_state._inspect('engine_process', when=BP_AFTER, sim_successors=successors, address=addr)
+        successors = new_state._inspect_getattr('sim_successors', successors)
+
+        # downsizing
+        new_state.inspect.downsize()
+        # if not TRACK, clear actions on OLD state
+        #if o.TRACK_ACTION_HISTORY not in old_state.options:
+        #    old_state.history.recent_events = []
+
         return successors
 
     def check(self, state, *args, **kwargs):
@@ -52,7 +76,7 @@ class SimEngine(object):
         You should only override this method in a subclass in order to provide the correct method signature and
         docstring. You should override the ``_check`` method to do your actual execution.
 
-        :param simuvex.SimState state: The state with which to execute.
+        :param SimState state: The state with which to execute.
         :param args:                   Positional arguments that will be passed to process().
         :param kwargs:                 Keyword arguments that will be passed to process().
         :return:                       True if the state can be handled by the current engine, False otherwise.
@@ -86,4 +110,6 @@ class SimEngine(object):
         return { }
 
 from simuvex import s_options as o
+from ..plugins.inspect import BP_BEFORE, BP_AFTER
 from .successors import SimSuccessors
+from ..s_errors import SimException
