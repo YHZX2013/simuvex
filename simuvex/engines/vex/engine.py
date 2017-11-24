@@ -9,8 +9,8 @@ from ... import s_options as o
 from ...plugins.inspect import BP_AFTER, BP_BEFORE
 from ...s_action import SimActionExit, SimActionObject
 from ...s_errors import (SimError, SimIRSBError, SimSolverError, SimMemoryAddressError, SimReliftException,
-                                        UnsupportedDirtyError, SimTranslationError, SimEngineError, SimSegfaultError,
-                                        SimMemoryError)
+                       UnsupportedDirtyError, SimTranslationError, SimEngineError, SimSegfaultError,
+                       SimMemoryError, SimIRSBNoDecodeError)
 from ..engine import SimEngine
 from .statements import translate_stmt
 from .expressions import translate_expr
@@ -106,7 +106,7 @@ class SimEngineVEX(SimEngine):
     def _process(self, state, successors, irsb=None, skip_stmts=0, last_stmt=99999999, whitelist=None, insn_bytes=None, size=None, num_inst=None, traceflags=0, thumb=False, opt_level=None):
         successors.sort = 'IRSB'
         successors.description = 'IRSB'
-        state.scratch.executed_block_count = 1
+        state.history.recent_block_count = 1
         state.scratch.guard = claripy.true
         state.scratch.sim_procedure = None
         addr = successors.addr
@@ -125,6 +125,11 @@ class SimEngineVEX(SimEngine):
                     opt_level=opt_level)
 
             if irsb.size == 0:
+                if irsb.jumpkind == 'Ijk_NoDecode' and not state.project.is_hooked(irsb.addr):
+                    raise SimIRSBNoDecodeError("IR decoding error at %#x. You can hook this instruction with "
+                                               "a python replacement using project.hook"
+                                               "(%#x, your_function, length=length_of_instruction)." % (addr, addr))
+
                 raise SimIRSBError("Empty IRSB passed to SimIRSB.")
 
             # check permissions, are we allowed to execute here? Do we care?
@@ -195,6 +200,9 @@ class SimEngineVEX(SimEngine):
                     skip_stmts = max(skip_stmts, i)
                     break
 
+        # set the current basic block address that's being processed
+        state.scratch.bbl_addr = irsb.addr
+
         for stmt_idx, stmt in enumerate(ss):
             if isinstance(stmt, pyvex.IRStmt.IMark):
                 insn_addrs.append(stmt.addr + stmt.delta)
@@ -221,7 +229,7 @@ class SimEngineVEX(SimEngine):
                     retval_size = state.scratch.tyenv.sizeof(stmt.tmp)
                     retval = state.se.Unconstrained("unsupported_dirty_%s" % stmt.cee.name, retval_size)
                     state.scratch.store_tmp(stmt.tmp, retval, None, None)
-                state.log.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
+                state.history.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
                                     message='unsupported Dirty call')
             except (SimSolverError, SimMemoryAddressError):
                 l.warning("%#x hit an error while analyzing statement %d", successors.addr, stmt_idx, exc_info=True)
@@ -241,15 +249,14 @@ class SimEngineVEX(SimEngine):
 
             try:
                 next_expr = translate_expr(irsb.next, state)
-                state.log.extend_actions(next_expr.actions)
+                state.history.extend_actions(next_expr.actions)
 
                 if o.TRACK_JMP_ACTIONS in state.options:
                     target_ao = SimActionObject(
                         next_expr.expr,
                         reg_deps=next_expr.reg_deps(), tmp_deps=next_expr.tmp_deps()
                     )
-                    state.log.add_action(SimActionExit(state, target_ao, exit_type=SimActionExit.DEFAULT))
-
+                    state.history.add_action(SimActionExit(state, target_ao, exit_type=SimActionExit.DEFAULT))
                 successors.add_successor(state, next_expr.expr, state.scratch.guard, irsb.jumpkind,
                                          exit_stmt_idx='default', exit_ins_addr=state.scratch.ins_addr)
 
@@ -264,7 +271,7 @@ class SimEngineVEX(SimEngine):
 
         # do return emulation and calless stuff
         for exit_state in list(successors.all_successors):
-            exit_jumpkind = exit_state.scratch.jumpkind
+            exit_jumpkind = exit_state.history.jumpkind
             if exit_jumpkind is None: exit_jumpkind = ""
 
             if o.CALLLESS in state.options and exit_jumpkind == "Ijk_Call":
@@ -275,7 +282,7 @@ class SimEngineVEX(SimEngine):
                 exit_state.scratch.target = exit_state.se.BVV(
                     successors.addr + irsb.size, exit_state.arch.bits
                 )
-                exit_state.scratch.jumpkind = "Ijk_Ret"
+                exit_state.history.jumpkind = "Ijk_Ret"
                 exit_state.regs.ip = exit_state.scratch.target
 
             elif o.DO_RET_EMULATION in exit_state.options and \
@@ -321,7 +328,7 @@ class SimEngineVEX(SimEngine):
         # process it!
         s_stmt = translate_stmt(stmt, state)
         if s_stmt is not None:
-            state.log.extend_actions(s_stmt.actions)
+            state.history.extend_actions(s_stmt.actions)
 
         # for the exits, put *not* taking the exit on the list of constraints so
         # that we can continue on. Otherwise, add the constraints
