@@ -5,13 +5,15 @@ This module handles constraint generation.
 
 import logging
 logging.getLogger("simuvex").addHandler(logging.NullHandler())
-
-# pylint: disable=W0401
+rom .misc.loggers import Loggers
+loggers = Loggers()
+del Loggers
+del logging
 
 from .s_state import SimState
 #from .s_unicorn import SimUnicorn
 from .s_procedure import SimProcedure
-from .procedures import SimProcedures
+from .procedures import SIM_PROCEDURES, SimProcedures, SIM_LIBRARIES
 from .s_cc import SimCC, DefaultCC
 from .s_slicer import SimSlicer
 from .s_type import define_struct, register_types, parse_defns, parse_types, parse_file, parse_type
