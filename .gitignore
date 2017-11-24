@@ -14,3 +14,5 @@ unicorn-master
 unicorn.diff
 dist
 MANIFEST
+.eggs
+simuvex.egg-info
