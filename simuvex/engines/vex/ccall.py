@@ -31,7 +31,8 @@ def boolean_extend(state, O, a, b, size):
     return state.se.If(O(a, b), state.se.BVV(1, size), state.se.BVV(0, size))
 
 def flag_concretize(state, flag):
-    return state.se.exactly_n_int(flag, 1)[0]
+    return state.se.eval(flag)
+    #return state.se.eval_one(flag)
 
 ##################
 ### x86* data ###
@@ -1019,7 +1020,7 @@ def x86g_calculate_aad_aam(state, flags_and_AX, opcode):
         r_AL = ((r_AH * 10) + r_AL) & 0xff
         r_AH = state.se.BVV(0, 32)
     else:
-        raise SimCCallError("Unknown opcode %#x in AAD/AAM ccall", opcode)
+        raise SimCCallError("Unknown opcode %#x in AAD/AAM ccall" % opcode)
 
     r_O = state.se.BVV(0, 32)
     r_C = state.se.BVV(0, 32)
