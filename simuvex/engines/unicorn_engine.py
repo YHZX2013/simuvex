@@ -1,17 +1,20 @@
 import logging
-l = logging.getLogger('simuvex.engines.unicorn_engine')
 
 from ..engines import SimEngine
+from ..plugins.inspect import BP_AFTER
 
 #pylint: disable=arguments-differ
 
+l = logging.getLogger('simuvex.engines.unicorn_engine')
+
+
 class SimEngineUnicorn(SimEngine):
     """
-    Concrete exection in the Unicorn Engine, a fork of qemu.
+    Concrete execution in the Unicorn Engine, a fork of qemu.
     """
     def __init__(self, base_stop_points=None):
 
-        super(SimEngineUnicorn, self).__init__(check_failed=self._countdown)
+        super(SimEngineUnicorn, self).__init__()
 
         self.base_stop_points = base_stop_points
 
@@ -38,9 +41,22 @@ class SimEngineUnicorn(SimEngine):
                 force_addr=force_addr)
 
     def _check(self, state, **kwargs):
-
         if o.UNICORN not in state.options:
             l.debug('Unicorn-engine is not enabled.')
+            return False
+
+        if uc_module is None or _UC_NATIVE is None:
+            if once('unicorn_install_warning'):
+                l.error("You are attempting to use unicorn engine support even though it or the angr native layer "
+                        "isn't installed")
+            return False
+
+        self._countdown(state)
+
+        # should the countdown still be updated if we're not stepping a whole block?
+        # current decision: leave it updated, since we are moving forward
+        if kwargs.get("num_inst", None) is not None:
+            # we don't support single stepping with unicorn
             return False
 
         unicorn = state.unicorn  # shorthand
@@ -56,6 +72,8 @@ class SimEngineUnicorn(SimEngine):
         if unicorn.countdown_nonunicorn_blocks > 0:
             l.info("not enough runs since last unicorn (%d)", unicorn.countdown_nonunicorn_blocks)
             return False
+        if unicorn.countdown_stop_point > 0:
+            l.info("not enough blocks since stop point (%d more)", unicorn.countdown_stop_point)
         elif o.UNICORN_SYM_REGS_SUPPORT not in state.options and not unicorn._check_registers():
             l.info("failed register check")
             unicorn.countdown_symbolic_registers = unicorn.cooldown_symbolic_registers
@@ -70,49 +88,74 @@ class SimEngineUnicorn(SimEngine):
             extra_stop_points = set(self.base_stop_points)
         else:
             # convert extra_stop_points to a set
-            if not isinstance(extra_stop_points, set):
-                extra_stop_points = set(extra_stop_points)
+            extra_stop_points = set(extra_stop_points)
             extra_stop_points.update(self.base_stop_points)
         if successors.addr in extra_stop_points:
             return  # trying to start unicorn execution on a stop point
 
         successors.sort = 'Unicorn'
 
+        # add all instruction breakpoints as extra_stop_points
+        if state.has_plugin('inspector'):
+            for bp in state.inspect._breakpoints['instruction']:
+                # if there is an instruction breakpoint on every instruction, it does not make sense
+                # to use unicorn.
+                if "instruction" not in bp.kwargs:
+                    l.info("disabling unicorn because of breakpoint on every instruction")
+                    return
+
+                # add the breakpoint to extra_stop_points. We don't care if the breakpoint is BP_BEFORE or
+                # BP_AFTER, this is only to stop unicorn when we get near a breakpoint. The breakpoint itself
+                # will then be handled by another engine that can more accurately step instruction-by-instruction.
+                extra_stop_points.add(bp.kwargs["instruction"])
+
         # initialize unicorn plugin
         state.unicorn.setup()
         try:
             state.unicorn.set_stops(extra_stop_points)
+            state.unicorn.set_tracking(track_bbls=o.UNICORN_TRACK_BBL_ADDRS in state.options,
+                                       track_stack=o.UNICORN_TRACK_STACK_POINTERS in state.options)
             state.unicorn.hook()
             state.unicorn.start(step=step)
             state.unicorn.finish()
         finally:
             state.unicorn.destroy()
 
-        if state.unicorn.errno:
-            # error from unicorn
-            #err = str(unicorn.UcError(state.unicorn.errno))
+        if state.unicorn.steps == 0 or state.unicorn.stop_reason == STOP.STOP_NOSTART:
+            # fail out, force fallback to next engine
             successors.initial_state.unicorn.countdown_symbolic_memory = state.unicorn.countdown_symbolic_memory
             successors.initial_state.unicorn.countdown_symbolic_registers = state.unicorn.countdown_symbolic_registers
             successors.initial_state.unicorn.countdown_nonunicorn_blocks = state.unicorn.countdown_nonunicorn_blocks
-            return
-        elif state.unicorn.steps == 0:
-            successors.initial_state.unicorn.countdown_symbolic_memory = state.unicorn.countdown_symbolic_memory
-            successors.initial_state.unicorn.countdown_symbolic_registers = state.unicorn.countdown_symbolic_registers
-            successors.initial_state.unicorn.countdown_nonunicorn_blocks = state.unicorn.countdown_nonunicorn_blocks
+            successors.initial_state.unicorn.countdown_stop_point = state.unicorn.countdown_stop_point
             return
 
-        state.scratch.executed_block_count += state.unicorn.steps
+        description = 'Unicorn (%s after %d steps)' % (STOP.name_stop(state.unicorn.stop_reason), state.unicorn.steps)
+
+        state.history.recent_block_count += state.unicorn.steps
+        state.history.recent_description = description
+
+        # this can be expensive, so check first
+        if state.has_plugin('inspector'):
+            for bp in state.inspect._breakpoints['irsb']:
+                if bp.check(state, BP_AFTER):
+                    for bbl_addr in state.history.recent_bbl_addrs:
+                        state._inspect('irsb', BP_AFTER, address=bbl_addr)
+                    break
 
         if state.unicorn.jumpkind.startswith('Ijk_Sys'):
             state.ip = state.unicorn._syscall_pc
         successors.add_successor(state, state.ip, state.se.true, state.unicorn.jumpkind)
 
-        successors.description = 'Unicorn (%s after %d steps)' % (STOP.name_stop(state.unicorn.stop_reason), state.unicorn.steps)
+        successors.description = description
         successors.processed = True
 
     @staticmethod
-    def _countdown(state, *args, **kwargs):  # pylint:disable=unused-argument
-        state.unicorn.decrement_countdowns()
+    def _countdown(state):
+        state.unicorn.countdown_nonunicorn_blocks -= 1
+        state.unicorn.countdown_symbolic_registers -= 1
+        state.unicorn.countdown_symbolic_memory -= 1
+        state.unicorn.countdown_symbolic_memory -= 1
+        state.unicorn.countdown_stop_point -= 1
 
     #
     # Pickling
@@ -120,14 +163,13 @@ class SimEngineUnicorn(SimEngine):
 
     def __setstate__(self, state):
         super(SimEngineUnicorn, self).__setstate__(state)
-
         self.base_stop_points = state['base_stop_points']
-        self._check_failed = self._countdown
 
     def __getstate__(self):
         s = super(SimEngineUnicorn, self).__getstate__()
         s['base_stop_points'] = self.base_stop_points
         return s
 
-from ..plugins.unicorn_engine import STOP
+from ..plugins.unicorn_engine import STOP, _UC_NATIVE, unicorn as uc_module
 from .. import s_options as o
+from ..misc.ux import once

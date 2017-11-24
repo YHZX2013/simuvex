@@ -38,26 +38,23 @@ class SimEngineProcedure(SimEngine):
 
     def _process(self, state, successors, procedure, ret_to=None):
         successors.sort = 'SimProcedure'
-        successors.description = 'SimProcedure ' + procedure.display_name
-        if procedure.is_syscall:
-            successors.description += ' (syscall)'
 
         # fill in artifacts
         successors.artifacts['is_syscall'] = procedure.is_syscall
-        successors.artifacts['procedure'] = procedure
         successors.artifacts['name'] = procedure.display_name
         successors.artifacts['no_ret'] = procedure.NO_RET
         successors.artifacts['adds_exits'] = procedure.ADDS_EXITS
 
         # Update state.scratch
         state.scratch.sim_procedure = procedure
-        state.scratch.executed_block_count = 1
+        state.history.recent_block_count = 1
 
         # prepare and run!
         state._inspect('simprocedure',
                        BP_BEFORE,
                        simprocedure_name=procedure.display_name,
-                       simprocedure_addr=successors.addr
+                       simprocedure_addr=successors.addr,
+                       simprocedure=procedure
                        )
         if procedure.is_syscall:
             state._inspect('syscall', BP_BEFORE, syscall_name=procedure.display_name)
@@ -68,7 +65,8 @@ class SimEngineProcedure(SimEngine):
             state.options.add(o.AUTO_REFS)
 
         # do it
-        procedure.execute(state, successors, ret_to=ret_to)
+        inst = procedure.execute(state, successors, ret_to=ret_to)
+        successors.artifacts['procedure'] = inst
 
         if cleanup_options:
             state.options.discard(o.AST_DEPS)
@@ -79,9 +77,15 @@ class SimEngineProcedure(SimEngine):
         state._inspect('simprocedure',
                        BP_AFTER,
                        simprocedure_name=procedure.display_name,
-                       simprocedure_addr=successors.addr
+                       simprocedure_addr=successors.addr,
+                       simprocedure=inst
                        )
 
+        successors.description = 'SimProcedure ' + procedure.display_name
+        if procedure.is_syscall:
+            successors.description += ' (syscall)'
+        if procedure.is_stub:
+            successors.description += ' (stub)'
         successors.processed = True
 
 from .. import s_options as o
