@@ -47,10 +47,9 @@ class SimState(ana.Storable): # pylint: disable=R0904
     :ivar unicorn:      Control of the Unicorn Engine
     """
 
-    def __init__(self, project=None, arch=None, plugins=None, memory_backer=None, permissions_backer=None, mode=None, options=None,
+    def __init__(self, arch=None, plugins=None, memory_backer=None, permissions_backer=None, mode=None, options=None,
                  add_options=None, remove_options=None, special_memory_filler=None, os_name=None):
-        self.project = project
-        self.arch = arch if arch is not None else project.arch.copy() if project is not None else None
+        self.arch = arch
 
         if type(self.arch) is str:
             self.arch = arch_from_id(self.arch)
@@ -436,26 +435,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
     # State branching operations
     #
 
-    def step(self, **kwargs):
-        """
-        Perform a step of symbolic execution using this state.
-        Any arguments to `AngrObjectFactory.successors` can be passed to this.
-
-        :return: A SimSuccessors object categorizing the results of the step.
-        """
-        return self.project.factory.successors(self, **kwargs)
-
-    def block(self, *args, **kwargs):
-        """
-        Represent the basic block at this state's instruction pointer.
-        Any arguments to `AngrObjectFactory.block` can ba passed to this.
-
-        :return: A Block object describing the basic block of code at this point.
-        """
-        if not args and 'addr' not in kwargs:
-            kwargs['addr'] = self.addr
-        return self.project.factory.block(*args, backup_state=self, **kwargs)
-
     # Returns a dict that is a copy of all the state's plugins
     def _copy_plugins(self):
         memo = {}
@@ -478,7 +457,7 @@ class SimState(ana.Storable): # pylint: disable=R0904
             raise SimStateError("global condition was not cleared before state.copy().")
 
         c_plugins = self._copy_plugins()
-        state = SimState(project=self.project, arch=self.arch, plugins=c_plugins, options=self.options, mode=self.mode, os_name=self.os_name)
+        state = SimState(arch=self.arch, plugins=c_plugins, options=self.options, mode=self.mode, os_name=self.os_name)
 
         state.uninitialized_access_handler = self.uninitialized_access_handler
         state._special_memory_filler = self._special_memory_filler
