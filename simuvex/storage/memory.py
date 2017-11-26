@@ -878,5 +878,5 @@ from bintrees import AVLTree
 from .. import s_options as o
 from ..s_action import SimActionData
 from ..s_action_object import SimActionObject, _raw_ast
-from ..s_errors import SimMemoryError, SimRegionMapError
+from ..s_errors import SimMemoryError, SimRegionMapError, SimSegfaultError
 from ..plugins.inspect import BP_BEFORE, BP_AFTER

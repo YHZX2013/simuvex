@@ -13,7 +13,6 @@ del logging
 from .s_state import SimState
 #from .s_unicorn import SimUnicorn
 from .s_procedure import SimProcedure
-from .procedures import SIM_PROCEDURES, SimProcedures, SIM_LIBRARIES
 from .s_cc import SimCC, DefaultCC
 from .s_slicer import SimSlicer
 from .s_type import define_struct, register_types, parse_defns, parse_types, parse_file, parse_type

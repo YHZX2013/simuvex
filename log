@@ -11,7 +11,7 @@ writing manifest file 'simuvex.egg-info/SOURCES.txt'
 installing library code to build/bdist.linux-x86_64/egg
 running install_lib
 running build_py
-copying simuvex/engines/failure.py -> build/lib/simuvex/engines
+copying simuvex/storage/memory.py -> build/lib/simuvex/storage
 creating build/bdist.linux-x86_64/egg
 creating build/bdist.linux-x86_64/egg/simuvex
 copying build/lib/simuvex/s_slicer.py -> build/bdist.linux-x86_64/egg/simuvex
@@ -184,8 +184,10 @@ copying build/lib/simuvex/misc/bug_report.py -> build/bdist.linux-x86_64/egg/sim
 copying build/lib/simuvex/misc/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/misc
 copying build/lib/simuvex/misc/graph.py -> build/bdist.linux-x86_64/egg/simuvex/misc
 creating build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/controlled_data.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
 copying build/lib/simuvex/concretization_strategies/single.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
 copying build/lib/simuvex/concretization_strategies/norepeats_range.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/eval.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
 copying build/lib/simuvex/concretization_strategies/any.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
 copying build/lib/simuvex/concretization_strategies/solutions.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
 copying build/lib/simuvex/concretization_strategies/nonzero_range.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
@@ -446,8 +448,10 @@ byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/loggers.py to loggers.p
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/bug_report.py to bug_report.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/__init__.py to __init__.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/graph.py to graph.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/controlled_data.py to controlled_data.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/single.py to single.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/norepeats_range.py to norepeats_range.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/eval.py to eval.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/any.py to any.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/solutions.py to solutions.pypy-41.pyc
 byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/nonzero_range.py to nonzero_range.pypy-41.pyc

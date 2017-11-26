@@ -187,7 +187,7 @@ class SimState(ana.Storable): # pylint: disable=R0904
 
         :return: an int
         """
-
+        
         return self.se.eval_one(self.regs._ip)
 
     #
