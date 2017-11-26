@@ -939,7 +939,7 @@ def translate_inner(state, irop, s_args):
         else:
             raise
 
-from ...errors import UnsupportedIROpError, SimOperationError, SimValueError, SimZeroDivisionException
-from ... import sim_options as options
+from ...s_errors import UnsupportedIROpError, SimOperationError, SimValueError, SimZeroDivisionException
+from ... import s_options as options
 
 make_operations()

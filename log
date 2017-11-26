@@ -1,0 +1,651 @@
+running install
+running bdist_egg
+running egg_info
+writing simuvex.egg-info/PKG-INFO
+writing dependency_links to simuvex.egg-info/dependency_links.txt
+writing requirements to simuvex.egg-info/requires.txt
+writing top-level names to simuvex.egg-info/top_level.txt
+reading manifest file 'simuvex.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'simuvex.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+copying simuvex/engines/failure.py -> build/lib/simuvex/engines
+creating build/bdist.linux-x86_64/egg
+creating build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_slicer.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_action.py -> build/bdist.linux-x86_64/egg/simuvex
+creating build/bdist.linux-x86_64/egg/simuvex/procedures
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/ld-linux-x86-64___so___2
+copying build/lib/simuvex/procedures/ld-linux-x86-64___so___2/__tls_get_addr.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/ld-linux-x86-64___so___2
+copying build/lib/simuvex/procedures/ld-linux-x86-64___so___2/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/ld-linux-x86-64___so___2
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/random.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/allocate.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/_terminate.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/transmit.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/deallocate.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/receive.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/fdwait.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+copying build/lib/simuvex/procedures/cgc/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/cgc
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/lseek.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/getpid.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/mmap.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/fstat.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/sigprocmask.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/mprotect.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/close.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/gettid.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/brk.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/tgkill.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/munmap.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/read.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/open.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/time.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/uname.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/unlink.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/stub.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/stat.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/exit.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/write.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/sigaction.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+copying build/lib/simuvex/procedures/syscalls/arch_prctl.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/testing
+copying build/lib/simuvex/procedures/testing/retreg.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/testing
+copying build/lib/simuvex/procedures/testing/manyargs.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/testing
+copying build/lib/simuvex/procedures/testing/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/testing
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/b64_decode.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/UnresolvableTarget.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/PathTerminator.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/Redirect.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/NoReturnUnconstrained.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/UserHook.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/crazy_scanf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/ReturnUnconstrained.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/Nop.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/ReturnChar.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+copying build/lib/simuvex/procedures/stubs/caller.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/stubs
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fprintf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/snprintf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fputc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/rewind.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__ctype_toupper_loc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strstr.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/vsnprintf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/inet_ntoa.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/system.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__uClibc_main.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fflush.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/rand.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/mmap.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/getpass.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fopen.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/memcpy.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strtok_r.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/accept.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/ungetc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fork.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/close.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/gethostbyname.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/send.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/socket_.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fputs.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fdopen.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/putc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__libc_start_main.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/usleep.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/read.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fgetc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/pthread_mutex_lock.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/open.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/readdir.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/ftell.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fwrite.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/perror.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/feof.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__ctype_b_loc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/memmove.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strcmp.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/memcmp.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strdup.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/sprintf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strchr.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/sleep.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/bind.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/_IO_getc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/unlink.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/recv.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/putchar.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strtol.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/listen.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strncpy.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/free.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/opendir.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/bcopy.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/atoi.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/sscanf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strlen.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fileno.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/closedir.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strncmp.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/calloc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__errno_location.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/pthread_mutex_unlock.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fclose.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/realloc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/getchar.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/printf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__assert_fail.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/abort.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/pthread_cond_signal.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strcpy.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/strcasecmp.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__ctype_tolower_loc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__isoc99_sscanf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/exit.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fread.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/setvbuf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/memset.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/scanf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fseek.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/puts.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/pthread_create.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/fgets.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/tmpnam.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/malloc.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/srand.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__isoc99_scanf.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__libc_init.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/recvfrom.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/htons.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/write.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/libc___so___6/__stack_chk_fail.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6
+copying build/lib/simuvex/procedures/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures
+creating build/bdist.linux-x86_64/egg/simuvex/procedures/ld-uClibc___so___0
+copying build/lib/simuvex/procedures/ld-uClibc___so___0/__uClibc_main.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/ld-uClibc___so___0
+copying build/lib/simuvex/procedures/ld-uClibc___so___0/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/procedures/ld-uClibc___so___0
+copying build/lib/simuvex/s_pcap.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_type_backend.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_options.py -> build/bdist.linux-x86_64/egg/simuvex
+creating build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/autoimport.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/testing.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/ux.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/range.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/loggers.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/bug_report.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+copying build/lib/simuvex/misc/graph.py -> build/bdist.linux-x86_64/egg/simuvex/misc
+creating build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/single.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/norepeats_range.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/any.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/solutions.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/nonzero_range.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/norepeats.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/range.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/max.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/nonzero.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/concretization_strategies/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/concretization_strategies
+copying build/lib/simuvex/s_state.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_action_object.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_format.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_event.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_errors.py -> build/bdist.linux-x86_64/egg/simuvex
+creating build/bdist.linux-x86_64/egg/simuvex/storage
+copying build/lib/simuvex/storage/memory.py -> build/bdist.linux-x86_64/egg/simuvex/storage
+copying build/lib/simuvex/storage/paged_memory.py -> build/bdist.linux-x86_64/egg/simuvex/storage
+copying build/lib/simuvex/storage/file.py -> build/bdist.linux-x86_64/egg/simuvex/storage
+copying build/lib/simuvex/storage/memory_object.py -> build/bdist.linux-x86_64/egg/simuvex/storage
+copying build/lib/simuvex/storage/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/storage
+copying build/lib/simuvex/s_cc.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_type.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/s_procedure.py -> build/bdist.linux-x86_64/egg/simuvex
+copying build/lib/simuvex/__init__.py -> build/bdist.linux-x86_64/egg/simuvex
+creating build/bdist.linux-x86_64/egg/simuvex/engines
+creating build/bdist.linux-x86_64/egg/simuvex/engines/vex
+copying build/lib/simuvex/engines/vex/dirty.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex
+copying build/lib/simuvex/engines/vex/engine.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex
+copying build/lib/simuvex/engines/vex/irop.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex
+copying build/lib/simuvex/engines/vex/ccall.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex
+creating build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/cas.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/llsc.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/loadg.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/dirty.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/store.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/abihint.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/noop.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/puti.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/mbe.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/put.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/wrtmp.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/storeg.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/exit.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/base.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/statements/imark.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements
+copying build/lib/simuvex/engines/vex/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex
+creating build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/unsupported.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/get.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/vecret.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/geti.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/gsptr.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/op.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/ccall.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/rdtmp.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/load.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/const.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/ite.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/vex/expressions/base.py -> build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions
+copying build/lib/simuvex/engines/unicorn_engine.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/engines/engine.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/engines/procedure.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/engines/hook.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/engines/successors.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/engines/failure.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/engines/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/engines
+copying build/lib/simuvex/s_variable.py -> build/bdist.linux-x86_64/egg/simuvex
+creating build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/log.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/procedure_data.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/gdb.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/unicorn_engine.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/view.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/solver.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/inspect.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/abstract_memory.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/cgc.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/globals.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/uc_manager.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/history.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/preconstrainer.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/scratch.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/callstack.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/libc.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/__init__.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/posix.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/symbolic_memory.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/fast_memory.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+copying build/lib/simuvex/plugins/plugin.py -> build/bdist.linux-x86_64/egg/simuvex/plugins
+creating build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/autoimport.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/testing.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/ux.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/range.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/loggers.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/bug_report.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/__init__.py -> build/bdist.linux-x86_64/egg/misc
+copying build/lib/misc/graph.py -> build/bdist.linux-x86_64/egg/misc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_slicer.py to s_slicer.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_action.py to s_action.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/ld-linux-x86-64___so___2/__tls_get_addr.py to __tls_get_addr.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/ld-linux-x86-64___so___2/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/random.py to random.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/allocate.py to allocate.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/_terminate.py to _terminate.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/transmit.py to transmit.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/deallocate.py to deallocate.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/receive.py to receive.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/fdwait.py to fdwait.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/cgc/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/lseek.py to lseek.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/getpid.py to getpid.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/mmap.py to mmap.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/fstat.py to fstat.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/sigprocmask.py to sigprocmask.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/mprotect.py to mprotect.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/close.py to close.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/gettid.py to gettid.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/brk.py to brk.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/tgkill.py to tgkill.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/munmap.py to munmap.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/read.py to read.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/open.py to open.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/time.py to time.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/uname.py to uname.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/unlink.py to unlink.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/stub.py to stub.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/stat.py to stat.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/exit.py to exit.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/write.py to write.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/sigaction.py to sigaction.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/syscalls/arch_prctl.py to arch_prctl.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/testing/retreg.py to retreg.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/testing/manyargs.py to manyargs.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/testing/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/b64_decode.py to b64_decode.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/UnresolvableTarget.py to UnresolvableTarget.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/PathTerminator.py to PathTerminator.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/Redirect.py to Redirect.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/NoReturnUnconstrained.py to NoReturnUnconstrained.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/UserHook.py to UserHook.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/crazy_scanf.py to crazy_scanf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/ReturnUnconstrained.py to ReturnUnconstrained.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/Nop.py to Nop.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/ReturnChar.py to ReturnChar.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/stubs/caller.py to caller.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fprintf.py to fprintf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/snprintf.py to snprintf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fputc.py to fputc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/rewind.py to rewind.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__ctype_toupper_loc.py to __ctype_toupper_loc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strstr.py to strstr.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/vsnprintf.py to vsnprintf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/inet_ntoa.py to inet_ntoa.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/system.py to system.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__uClibc_main.py to __uClibc_main.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fflush.py to fflush.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/rand.py to rand.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/mmap.py to mmap.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/getpass.py to getpass.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fopen.py to fopen.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/memcpy.py to memcpy.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strtok_r.py to strtok_r.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/accept.py to accept.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/ungetc.py to ungetc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fork.py to fork.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/close.py to close.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/gethostbyname.py to gethostbyname.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/send.py to send.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/socket_.py to socket_.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fputs.py to fputs.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fdopen.py to fdopen.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/putc.py to putc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__libc_start_main.py to __libc_start_main.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/usleep.py to usleep.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/read.py to read.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fgetc.py to fgetc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/pthread_mutex_lock.py to pthread_mutex_lock.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/open.py to open.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/readdir.py to readdir.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/ftell.py to ftell.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fwrite.py to fwrite.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/perror.py to perror.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/feof.py to feof.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__ctype_b_loc.py to __ctype_b_loc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/memmove.py to memmove.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strcmp.py to strcmp.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/memcmp.py to memcmp.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strdup.py to strdup.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/sprintf.py to sprintf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strchr.py to strchr.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/sleep.py to sleep.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/bind.py to bind.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/_IO_getc.py to _IO_getc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/unlink.py to unlink.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/recv.py to recv.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/putchar.py to putchar.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strtol.py to strtol.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/listen.py to listen.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strncpy.py to strncpy.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/free.py to free.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/opendir.py to opendir.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/bcopy.py to bcopy.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/atoi.py to atoi.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/sscanf.py to sscanf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strlen.py to strlen.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fileno.py to fileno.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/closedir.py to closedir.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strncmp.py to strncmp.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/calloc.py to calloc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__errno_location.py to __errno_location.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/pthread_mutex_unlock.py to pthread_mutex_unlock.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fclose.py to fclose.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/realloc.py to realloc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/getchar.py to getchar.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/printf.py to printf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__assert_fail.py to __assert_fail.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/abort.py to abort.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/pthread_cond_signal.py to pthread_cond_signal.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strcpy.py to strcpy.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/strcasecmp.py to strcasecmp.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__ctype_tolower_loc.py to __ctype_tolower_loc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__isoc99_sscanf.py to __isoc99_sscanf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/exit.py to exit.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fread.py to fread.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/setvbuf.py to setvbuf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/memset.py to memset.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/scanf.py to scanf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fseek.py to fseek.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/puts.py to puts.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/pthread_create.py to pthread_create.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/fgets.py to fgets.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/tmpnam.py to tmpnam.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/malloc.py to malloc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/srand.py to srand.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__isoc99_scanf.py to __isoc99_scanf.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__libc_init.py to __libc_init.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/recvfrom.py to recvfrom.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/htons.py to htons.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/write.py to write.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/libc___so___6/__stack_chk_fail.py to __stack_chk_fail.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/ld-uClibc___so___0/__uClibc_main.py to __uClibc_main.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/procedures/ld-uClibc___so___0/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_pcap.py to s_pcap.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_type_backend.py to s_type_backend.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_options.py to s_options.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/autoimport.py to autoimport.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/testing.py to testing.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/ux.py to ux.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/range.py to range.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/loggers.py to loggers.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/bug_report.py to bug_report.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/misc/graph.py to graph.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/single.py to single.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/norepeats_range.py to norepeats_range.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/any.py to any.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/solutions.py to solutions.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/nonzero_range.py to nonzero_range.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/norepeats.py to norepeats.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/range.py to range.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/max.py to max.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/nonzero.py to nonzero.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/concretization_strategies/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_state.py to s_state.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_action_object.py to s_action_object.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_format.py to s_format.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_event.py to s_event.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_errors.py to s_errors.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/storage/memory.py to memory.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/storage/paged_memory.py to paged_memory.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/storage/file.py to file.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/storage/memory_object.py to memory_object.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/storage/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_cc.py to s_cc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_type.py to s_type.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_procedure.py to s_procedure.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/dirty.py to dirty.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/engine.py to engine.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/irop.py to irop.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/ccall.py to ccall.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/cas.py to cas.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/llsc.py to llsc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/loadg.py to loadg.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/dirty.py to dirty.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/store.py to store.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/abihint.py to abihint.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/noop.py to noop.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/puti.py to puti.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/mbe.py to mbe.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/put.py to put.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/wrtmp.py to wrtmp.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/storeg.py to storeg.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/exit.py to exit.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/base.py to base.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/statements/imark.py to imark.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/unsupported.py to unsupported.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/get.py to get.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/vecret.py to vecret.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/geti.py to geti.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/gsptr.py to gsptr.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/op.py to op.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/ccall.py to ccall.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/rdtmp.py to rdtmp.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/load.py to load.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/const.py to const.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/ite.py to ite.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/vex/expressions/base.py to base.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/unicorn_engine.py to unicorn_engine.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/engine.py to engine.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/procedure.py to procedure.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/hook.py to hook.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/successors.py to successors.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/failure.py to failure.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/engines/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/s_variable.py to s_variable.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/log.py to log.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/procedure_data.py to procedure_data.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/gdb.py to gdb.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/unicorn_engine.py to unicorn_engine.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/view.py to view.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/solver.py to solver.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/inspect.py to inspect.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/abstract_memory.py to abstract_memory.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/cgc.py to cgc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/globals.py to globals.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/uc_manager.py to uc_manager.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/history.py to history.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/preconstrainer.py to preconstrainer.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/scratch.py to scratch.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/callstack.py to callstack.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/libc.py to libc.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/posix.py to posix.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/symbolic_memory.py to symbolic_memory.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/fast_memory.py to fast_memory.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/simuvex/plugins/plugin.py to plugin.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/autoimport.py to autoimport.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/testing.py to testing.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/ux.py to ux.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/range.py to range.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/loggers.py to loggers.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/bug_report.py to bug_report.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/__init__.py to __init__.pypy-41.pyc
+byte-compiling build/bdist.linux-x86_64/egg/misc/graph.py to graph.pypy-41.pyc
+creating build/bdist.linux-x86_64/egg/EGG-INFO
+copying simuvex.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying simuvex.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying simuvex.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying simuvex.egg-info/requires.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying simuvex.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+creating 'dist/simuvex-6.7.6.9-py2.7.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+Processing simuvex-6.7.6.9-py2.7.egg
+removing '/usr/local/lib/pypy2.7/dist-packages/simuvex-6.7.6.9-py2.7.egg' (and everything under it)
+creating /usr/local/lib/pypy2.7/dist-packages/simuvex-6.7.6.9-py2.7.egg
+Extracting simuvex-6.7.6.9-py2.7.egg to /usr/local/lib/pypy2.7/dist-packages
+simuvex 6.7.6.9 is already the active version in easy-install.pth
+
+Installed /usr/local/lib/pypy2.7/dist-packages/simuvex-6.7.6.9-py2.7.egg
+Processing dependencies for simuvex==6.7.6.9
+Searching for unicorn==1.0.1
+Best match: unicorn 1.0.1
+Processing unicorn-1.0.1-py2.7.egg
+unicorn 1.0.1 is already the active version in easy-install.pth
+
+Using /home/zimivm/桌面/download/pypy_lib/simuvex/.eggs/unicorn-1.0.1-py2.7.egg
+Searching for ana==0.3
+Best match: ana 0.3
+Processing ana-0.3-py2.7.egg
+ana 0.3 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/ana-0.3-py2.7.egg
+Searching for cooldict==1.2
+Best match: cooldict 1.2
+Processing cooldict-1.2-py2.7.egg
+cooldict 1.2 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/cooldict-1.2-py2.7.egg
+Searching for claripy==7.7.9.21
+Best match: claripy 7.7.9.21
+Processing claripy-7.7.9.21-py2.7.egg
+claripy 7.7.9.21 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/claripy-7.7.9.21-py2.7.egg
+Searching for archinfo==7.7.9.14
+Best match: archinfo 7.7.9.14
+Processing archinfo-7.7.9.14-py2.7.egg
+archinfo 7.7.9.14 is already the active version in easy-install.pth
+
+Using /home/zimivm/桌面/download/pypy_lib/simuvex/.eggs/archinfo-7.7.9.14-py2.7.egg
+Searching for pyvex==7.7.9.14
+Best match: pyvex 7.7.9.14
+Processing pyvex-7.7.9.14-py2.7.egg
+pyvex 7.7.9.14 is already the active version in easy-install.pth
+
+Using /home/zimivm/桌面/download/pypy_lib/simuvex/.eggs/pyvex-7.7.9.14-py2.7.egg
+Searching for dpkt-fix==1.7
+Best match: dpkt-fix 1.7
+Processing dpkt_fix-1.7-py2.7.egg
+dpkt-fix 1.7 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/dpkt_fix-1.7-py2.7.egg
+Searching for enum34==1.1.6
+Best match: enum34 1.1.6
+Processing enum34-1.1.6-py2.7.egg
+enum34 1.1.6 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/enum34-1.1.6-py2.7.egg
+Searching for cachetools==2.0.1
+Best match: cachetools 2.0.1
+Processing cachetools-2.0.1-py2.7.egg
+cachetools 2.0.1 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/cachetools-2.0.1-py2.7.egg
+Searching for bintrees==2.0.7
+Best match: bintrees 2.0.7
+Processing bintrees-2.0.7-py2.7.egg
+bintrees 2.0.7 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/bintrees-2.0.7-py2.7.egg
+Searching for future==0.16.0
+Best match: future 0.16.0
+Processing future-0.16.0-py2.7.egg
+future 0.16.0 is already the active version in easy-install.pth
+Installing futurize script to /usr/lib/pypy/../../local/bin
+Installing pasteurize script to /usr/lib/pypy/../../local/bin
+
+Using /usr/local/lib/pypy2.7/dist-packages/future-0.16.0-py2.7.egg
+Searching for z3-solver==4.5.1.0.post2
+Best match: z3-solver 4.5.1.0.post2
+Processing z3_solver-4.5.1.0.post2-py2.7.egg
+z3-solver 4.5.1.0.post2 is already the active version in easy-install.pth
+
+Using /usr/local/lib/pypy2.7/dist-packages/z3_solver-4.5.1.0.post2-py2.7.egg
+Searching for bitstring==3.1.5
+Best match: bitstring 3.1.5
+Processing bitstring-3.1.5-py2.7.egg
+bitstring 3.1.5 is already the active version in easy-install.pth
+
+Using /home/zimivm/桌面/download/pypy_lib/simuvex/.eggs/bitstring-3.1.5-py2.7.egg
+Searching for cffi==1.10.1
+Best match: cffi 1.10.1
+cffi 1.10.1 is already the active version in easy-install.pth
+
+Using /usr/lib/pypy/lib_pypy
+Searching for pycparser==2.18
+Best match: pycparser 2.18
+Processing pycparser-2.18-py2.7.egg
+pycparser 2.18 is already the active version in easy-install.pth
+
+Using /home/zimivm/桌面/download/pypy_lib/simuvex/.eggs/pycparser-2.18-py2.7.egg
+Finished processing dependencies for simuvex==6.7.6.9

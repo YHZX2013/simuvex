@@ -46,5 +46,5 @@ class SimEngineFailure(SimEngine): #pylint:disable=abstract-method
         s['project'] = self.project
         return s
 
-from ..errors import AngrExitError
+from ..s_errors import AngrExitError
 from .successors import SimSuccessors

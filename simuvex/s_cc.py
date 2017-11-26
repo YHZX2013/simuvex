@@ -4,7 +4,7 @@ import claripy
 import archinfo
 
 from s_type import *
-from .plugins.s_action_object import SimActionObject
+from s_action_object import SimActionObject
 
 l = logging.getLogger("simuvex.s_cc")
 

@@ -120,5 +120,4 @@ from simuvex.s_errors import SimExpressionError
 from simuvex.s_action import SimActionData, SimActionOperation
 
 # VEX subpackage imports
-from .. import size_bits
 from . import translate_expr

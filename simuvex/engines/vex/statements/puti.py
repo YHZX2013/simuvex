@@ -1,5 +1,4 @@
 from . import SimIRStmt
-from .. import size_bytes
 from simuvex import s_options as o
 from simuvex.s_action_object import SimActionObject
 from simuvex.s_action import SimActionData

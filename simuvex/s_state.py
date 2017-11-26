@@ -47,7 +47,7 @@ class SimState(ana.Storable): # pylint: disable=R0904
     :ivar unicorn:      Control of the Unicorn Engine
     """
 
-     def __init__(self, project=None, arch=None, plugins=None, memory_backer=None, permissions_backer=None, mode=None, options=None,
+    def __init__(self, project=None, arch=None, plugins=None, memory_backer=None, permissions_backer=None, mode=None, options=None,
                  add_options=None, remove_options=None, special_memory_filler=None, os_name=None):
         self.project = project
         self.arch = arch if arch is not None else project.arch.copy() if project is not None else None
@@ -133,7 +133,7 @@ class SimState(ana.Storable): # pylint: disable=R0904
     def _get_strongref(self):
         return self
 
-   def __repr__(self):
+    def __repr__(self):
         try:
             ip_str = "%#x" % self.addr
         except (SimValueError, SimSolverModeError):

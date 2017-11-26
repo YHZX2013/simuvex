@@ -5,7 +5,7 @@ This module handles constraint generation.
 
 import logging
 logging.getLogger("simuvex").addHandler(logging.NullHandler())
-rom .misc.loggers import Loggers
+from .misc.loggers import Loggers
 loggers = Loggers()
 del Loggers
 del logging
