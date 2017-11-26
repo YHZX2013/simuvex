@@ -187,7 +187,7 @@ class SimState(ana.Storable): # pylint: disable=R0904
 
         :return: an int
         """
-        
+
         return self.se.eval_one(self.regs._ip)
 
     #
@@ -260,9 +260,9 @@ class SimState(ana.Storable): # pylint: disable=R0904
     def globals(self):
         return self.get_plugin('globals')
 
-    @property
-    def procedure_data(self):
-        return self.get_plugin('procedure_data')
+    # @property
+    # def procedure_data(self):
+    #     return self.get_plugin('procedure_data')
 
     @property
     def uc_manager(self):
@@ -270,8 +270,8 @@ class SimState(ana.Storable): # pylint: disable=R0904
 
     @property
     def unicorn(self):
-        #return self.get_plugin('unicorn')
-        return None
+        return self.get_plugin('unicorn')
+        # return None
 
     @property
     def preconstrainer(self):

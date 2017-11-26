@@ -97,7 +97,7 @@ class SimStateHistory(SimStatePlugin):
         return "<StateHistory @ %s>" % addr_str
 
     def set_strongref_state(self, state):
-        if sim_options.EFFICIENT_STATE_MERGING in state.options:
+        if s_options.EFFICIENT_STATE_MERGING in state.options:
             self.strongref_state = state
 
     @property
@@ -502,5 +502,5 @@ class LambdaIterIter(LambdaAttrIter):
                 yield a
 
 SimStateHistory.register_default('history', SimStateHistory)
-from .sim_action import SimAction, SimActionConstraint
-from .sim_event import SimEvent
+from ..s_action import SimAction, SimActionConstraint
+from ..s_event import SimEvent
