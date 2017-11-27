@@ -149,12 +149,12 @@ class SimSuccessors(object):
 
         # For architectures with no stack pointer, we can't manage a callstack. This has the side effect of breaking
         # SimProcedures that call out to binary code self.call.
-        if self.initial_state.arch.sp_offset is not None:
-            self._manage_callstack(state)
+        # if self.initial_state.arch.sp_offset is not None:
+        #     self._manage_callstack(state)
 
-        if len(self.successors) != 0:
-            # This is a fork!
-            state._inspect('fork', BP_AFTER)
+        # if len(self.successors) != 0:
+        #     # This is a fork!
+        #     state._inspect('fork', BP_AFTER)
 
         # clean up the state
         state.options.discard(o.AST_DEPS)
