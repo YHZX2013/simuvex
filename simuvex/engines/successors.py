@@ -147,64 +147,9 @@ class SimSuccessors(object):
         # trigger inspect breakpoints here since this statement technically shows up in the IRSB as the "next"
         state.regs.ip = state.scratch.target
 
-        # For architectures with no stack pointer, we can't manage a callstack. This has the side effect of breaking
-        # SimProcedures that call out to binary code self.call.
-        # if self.initial_state.arch.sp_offset is not None:
-        #     self._manage_callstack(state)
-
-        # if len(self.successors) != 0:
-        #     # This is a fork!
-        #     state._inspect('fork', BP_AFTER)
-
         # clean up the state
         state.options.discard(o.AST_DEPS)
         state.options.discard(o.AUTO_REFS)
-
-    @staticmethod
-    def _manage_callstack(state):
-        # condition for call = Ijk_Call
-        # condition for ret = stack pointer drops below call point
-        if state.history.jumpkind == 'Ijk_Call':
-            state._inspect('call', BP_BEFORE, function_address=state.regs._ip)
-            new_func_addr = state._inspect_getattr('function_address', None)
-            if new_func_addr is not None and not claripy.is_true(new_func_addr == state.regs._ip):
-                state.regs._ip = new_func_addr
-
-            if state.arch.call_pushes_ret:
-                ret_addr = state.mem[state.regs._sp].long.concrete
-            else:
-                ret_addr = state.se.eval(state.regs._lr)
-            try:
-                state_addr = state.addr
-            except SimValueError:
-                state_addr = None
-            new_frame = CallStack(
-                    call_site_addr=state.history.recent_bbl_addrs[-1],
-                    func_addr=state_addr,
-                    stack_ptr=state.se.eval(state.regs._sp),
-                    ret_addr=ret_addr,
-                    jumpkind='Ijk_Call')
-            state.callstack.push(new_frame)
-
-            state._inspect('call', BP_AFTER)
-        else:
-            while state.se.is_true(state.regs._sp > state.callstack.top.stack_ptr):
-                state._inspect('return', BP_BEFORE, function_address=state.callstack.top.func_addr)
-                state.callstack.pop()
-                state._inspect('return', BP_AFTER)
-
-            if not state.arch.call_pushes_ret and \
-                    claripy.is_true(state.regs._ip == state.callstack.ret_addr) and \
-                    claripy.is_true(state.regs._sp == state.callstack.stack_ptr):
-                # very weird edge case that's not actually weird or on the edge at all:
-                # if we use a link register for the return address, the stack pointer will be the same
-                # before and after the call. therefore we have to check for equality with the marker
-                # along with this other check with the instruction pointer to guess whether it's time
-                # to pop a callframe. Still better than relying on Ijk_Ret.
-                state._inspect('return', BP_BEFORE, function_address=state.callstack.top.func_addr)
-                state.callstack.pop()
-                state._inspect('return', BP_AFTER)
-
 
     def _categorize_successor(self, state):
         """
@@ -373,5 +318,4 @@ from ..plugins.inspect import BP_BEFORE, BP_AFTER
 from ..s_errors import SimSolverModeError, AngrUnsupportedSyscallError, SimValueError
 from ..s_cc import SYSCALL_CC
 from ..s_action_object import _raw_ast
-from ..plugins.callstack import CallStack
 from .. import s_options as o

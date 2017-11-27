@@ -17,7 +17,6 @@ from .unicorn_engine import Unicorn
 from ..s_action import *
 from ..s_action_object import *
 from ..s_event import *
-from .callstack import *
 from .globals import *
 from .preconstrainer import *
 from .procedure_data import *
