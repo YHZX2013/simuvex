@@ -249,10 +249,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
     def globals(self):
         return self.get_plugin('globals')
 
-    # @property
-    # def procedure_data(self):
-    #     return self.get_plugin('procedure_data')
-
     @property
     def uc_manager(self):
         return self.get_plugin('uc_manager')
