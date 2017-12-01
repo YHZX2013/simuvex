@@ -1089,7 +1089,7 @@ SYSCALL_CC = {
         'default': SimCCX86LinuxSyscall,
         'Linux': SimCCX86LinuxSyscall,
         'Windows': SimCCX86WindowsSyscall,
-        'CGC': SimCCX86LinuxSyscall,
+        # 'CGC': SimCCX86LinuxSyscall,
     },
     'AMD64': {
         'default': SimCCAMD64LinuxSyscall,

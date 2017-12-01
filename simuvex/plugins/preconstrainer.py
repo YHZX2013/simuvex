@@ -116,7 +116,8 @@ class SimStatePreconstrainer(SimStatePlugin):
             return
 
         for b in range(0x1000):
-            self._preconstrain(self._magic_content[b], self.state.cgc.flag_bytes[b])
+            # self._preconstrain(self._magic_content[b], self.state.cgc.flag_bytes[b])
+             l.warning("No cgc here!")
 
     def remove_preconstraints(self, to_composite_solver=True, simplify=True):
         if not (self._preconstrain_input or self._preconstrain_flag):

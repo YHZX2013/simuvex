@@ -240,10 +240,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
         return self.get_plugin('libc')
 
     @property
-    def cgc(self):
-        return self.get_plugin('cgc')
-
-    @property
     def regs(self):
         return self.get_plugin('regs')
 
