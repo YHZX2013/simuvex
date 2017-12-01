@@ -11,7 +11,6 @@ del Loggers
 del logging
 
 from .s_state import SimState
-#from .s_unicorn import SimUnicorn
 from .s_procedure import SimProcedure
 from .s_cc import SimCC, DefaultCC
 from .s_slicer import SimSlicer
@@ -23,7 +22,7 @@ from . import concretization_strategies
 from . import s_options
 from . import s_type_backend
 
-from .engines import SimEngine, SimSuccessors, SimEngineVEX, SimEngineProcedure, SimEngineUnicorn
+from .engines import SimEngine, SimSuccessors, SimEngineVEX, SimEngineProcedure
 from .engines.vex.statements import SimIRStmt
 from .engines.vex.irop import operations, all_operations, unsupported as unsupported_operations, unclassified as unclassified_operations
 

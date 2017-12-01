@@ -43,7 +43,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
     :ivar posix:        MISNOMER: information about the operating system or environment model
     :ivar libc:         Information about the standard library we are emulating
     :ivar uc_manager:   Control of under-constrained symbolic execution
-    :ivar unicorn:      Control of the Unicorn Engine
     """
 
     def __init__(self, arch=None, plugins=None, memory_backer=None, permissions_backer=None, mode=None, options=None,
@@ -257,11 +256,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
     @property
     def uc_manager(self):
         return self.get_plugin('uc_manager')
-
-    @property
-    def unicorn(self):
-        return self.get_plugin('unicorn')
-        # return None
 
     def _inspect(self, *args, **kwargs):
         if self.has_plugin('inspector'):
@@ -545,7 +539,7 @@ class SimState(ana.Storable): # pylint: disable=R0904
 
         # plugins
         for p in self.plugins:
-            if p in ('solver_engine', 'unicorn'):
+            if p in ('solver_engine'):
                 continue
             plugin_state_widened = widened.plugins[p].widen([_.plugins[p] for _ in others])
             if plugin_state_widened:

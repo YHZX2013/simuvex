@@ -11,9 +11,8 @@ try:
 except ImportError:
     print("If you install pygit (`pip install pygit`), I can give you git info too!")
 
-angr_modules = ['angr', 'cle', 'pyvex', 'claripy', 'archinfo', 'ana', 'simuvex', 'z3', 'unicorn']
+angr_modules = ['angr', 'cle', 'pyvex', 'claripy', 'archinfo', 'ana', 'simuvex', 'z3']
 native_modules = {'angr': 'angr.state_plugins.unicorn_engine._UC_NATIVE',
-                  'unicorn': 'unicorn.unicorn._uc',
                   'pyvex': 'pyvex.pvc',
                   'z3': 'z3.z3core.lib()'}
 

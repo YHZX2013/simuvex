@@ -18,52 +18,8 @@ from distutils.util import get_platform
 from distutils.errors import LibError
 from distutils.command.build import build as _build
 
-if sys.platform == 'darwin':
-    library_file = "sim_unicorn.dylib"
-elif sys.platform in ('win32', 'cygwin'):
-    library_file = "sim_unicorn.dll"
-else:
-    library_file = "sim_unicorn.so"
-
-def _build_sim_unicorn():
-    try:
-        import unicorn
-        import pyvex
-    except ImportError:
-        raise LibError("You must install unicorn and pyvex before building simuvex")
-
-    env = os.environ.copy()
-    env_data = (('UNICORN_INCLUDE_PATH', 'unicorn', 'include'),
-                ('UNICORN_LIB_PATH', 'unicorn', 'lib'),
-                ('UNICORN_LIB_FILE', 'unicorn', 'lib\\unicorn.lib'),
-                ('PYVEX_INCLUDE_PATH', 'pyvex', 'include'),
-                ('PYVEX_LIB_PATH', 'pyvex', 'lib'),
-                ('PYVEX_LIB_FILE', 'pyvex', 'lib\\pyvex.lib'))
-    for var, pkg, fnm in env_data:
-        try:
-            env[var] = pkg_resources.resource_filename(pkg, fnm).encode('ascii', 'ignore')
-        except KeyError:
-            pass
-
-    cmd1 = ['nmake', '/f', 'Makefile-win']
-    cmd2 = ['make']
-    for cmd in (cmd1, cmd2):
-        try:
-            if subprocess.call(cmd, cwd='simuvex_c', env=env) != 0:
-                raise LibError('Unable to build sim_unicorn')
-            break
-        except OSError:
-            continue
-    else:
-        raise LibError('Unable to build sim_unicorn')
-
-    shutil.rmtree('simuvex/lib', ignore_errors=True)
-    os.mkdir('simuvex/lib')
-    shutil.copy(os.path.join('simuvex_c', library_file), 'simuvex/lib')
-
 class build(_build):
     def run(self, *args):
-        self.execute(_build_sim_unicorn, (), msg='Building sim_unicorn')
         _build.run(self, *args)
 
 cmdclass = {
@@ -74,7 +30,6 @@ try:
     from setuptools.command.develop import develop as _develop
     class develop(_develop):
         def run(self, *args):
-            self.execute(_build_sim_unicorn, (), msg='Building sim_unicorn')
             _develop.run(self, *args)
 
     cmdclass['develop'] = develop
@@ -108,9 +63,8 @@ setup(
         'claripy',
         'cooldict',
         'ana',
-        'unicorn'
     ],
-    setup_requires=['unicorn', 'pyvex'],
+    setup_requires=['pyvex'],
     cmdclass=cmdclass,
     include_package_data=True,
     package_data={
