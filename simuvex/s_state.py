@@ -42,7 +42,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
     :ivar scratch:      Information about the current execution step
     :ivar posix:        MISNOMER: information about the operating system or environment model
     :ivar libc:         Information about the standard library we are emulating
-    :ivar cgc:          Information about the cgc environment
     :ivar uc_manager:   Control of under-constrained symbolic execution
     :ivar unicorn:      Control of the Unicorn Engine
     """
@@ -267,10 +266,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
     def unicorn(self):
         return self.get_plugin('unicorn')
         # return None
-
-    @property
-    def preconstrainer(self):
-        return self.get_plugin('preconstrainer')
 
     def _inspect(self, *args, **kwargs):
         if self.has_plugin('inspector'):
