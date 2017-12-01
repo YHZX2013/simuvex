@@ -247,10 +247,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
         return self.get_plugin('mem')
 
     @property
-    def gdb(self):
-        return self.get_plugin('gdb')
-
-    @property
     def globals(self):
         return self.get_plugin('globals')
 

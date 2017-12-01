@@ -10,7 +10,6 @@ from .fast_memory import *
 from .log import *
 from .history import *
 from .scratch import *
-from .gdb import *
 from .uc_manager import *
 from .unicorn_engine import Unicorn
 from ..s_action import *
