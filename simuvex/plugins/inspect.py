@@ -21,7 +21,6 @@ event_types = {
     'symbolic_variable',
     'call',
     'return',
-    'simprocedure',
     'syscall',
     'state_step',
     'cfg_handle_job',
@@ -98,11 +97,6 @@ inspect_attributes = {
 
     # syscall
     'syscall_name',
-
-    # simprocedure
-    'simprocedure_name',
-    'simprocedure_addr',
-    'simprocedure',
 
     # engine_process
     'sim_engine',
