@@ -218,10 +218,6 @@ class SimState(ana.Storable): # pylint: disable=R0904
         return self.get_plugin('inspector')
 
     @property
-    def log(self):
-        return self.get_plugin('log')
-
-    @property
     def scratch(self):
         return self.get_plugin('scratch')
 

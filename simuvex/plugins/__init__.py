@@ -7,7 +7,6 @@ from .solver import *
 from .symbolic_memory import SimSymbolicMemory
 from .abstract_memory import *
 from .fast_memory import *
-from .log import *
 from .history import *
 from .scratch import *
 from .uc_manager import *
