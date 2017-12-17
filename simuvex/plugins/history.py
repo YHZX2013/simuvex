@@ -160,7 +160,7 @@ class SimStateHistory(SimStatePlugin):
                 read_offset = None
             elif isinstance(read_from, str):
                 read_type = 'reg'
-                read_offset = self.state.project.arch.registers[read_from][0]
+                read_offset = self.state.arch.registers[read_from][0]
             else:
                 read_type = 'mem'
                 read_offset = read_from
@@ -170,7 +170,7 @@ class SimStateHistory(SimStatePlugin):
                 write_offset = None
             elif isinstance(write_to, str):
                 write_type = 'reg'
-                write_offset = self.state.project.arch.registers[write_to][0]
+                write_offset = self.state.arch.registers[write_to][0]
             else:
                 write_type = 'mem'
                 write_offset = write_to
