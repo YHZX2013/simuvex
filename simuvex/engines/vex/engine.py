@@ -232,9 +232,10 @@ class SimEngineVEX(SimEngine):
                 state.history.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
                                     message='unsupported Dirty call')
             except (SimSolverError, SimMemoryAddressError):
-                l.warning("%#x hit an error while analyzing statement %d", successors.addr, stmt_idx, exc_info=True)
-                has_default_exit = False
-                break
+                raise#now directly raise SimSolverError and SimMemoryAddressError
+                #l.warning("%#x hit an error while analyzing statement %d", successors.addr, stmt_idx, exc_info=True)
+                #has_default_exit = False
+                #break
 
         state.scratch.stmt_idx = num_stmts
 
