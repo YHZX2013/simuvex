@@ -225,12 +225,12 @@ class SimEngineVEX(SimEngine):
             except UnsupportedDirtyError:
                 if o.BYPASS_UNSUPPORTED_IRDIRTY not in state.options:
                     raise
-                if stmt.tmp not in (0xffffffff, -1):
-                    retval_size = state.scratch.tyenv.sizeof(stmt.tmp)
-                    retval = state.se.Unconstrained("unsupported_dirty_%s" % stmt.cee.name, retval_size)
-                    state.scratch.store_tmp(stmt.tmp, retval, None, None)
-                state.history.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
-                                    message='unsupported Dirty call')
+                # if stmt.tmp not in (0xffffffff, -1):
+                #     retval_size = state.scratch.tyenv.sizeof(stmt.tmp)
+                #     retval = state.se.Unconstrained("unsupported_dirty_%s" % stmt.cee.name, retval_size)
+                #     state.scratch.store_tmp(stmt.tmp, retval, None, None)
+                # state.history.add_event('resilience', resilience_type='dirty', dirty=stmt.cee.name,
+                #                     message='unsupported Dirty call')
             except (SimSolverError, SimMemoryAddressError):
                 raise#now directly raise SimSolverError and SimMemoryAddressError
                 #l.warning("%#x hit an error while analyzing statement %d", successors.addr, stmt_idx, exc_info=True)
