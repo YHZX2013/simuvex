@@ -34,5 +34,5 @@ class SimIRStmt_Dirty(SimIRStmt):
             if self.stmt.tmp not in (0xffffffff, -1):
                 self.state.scratch.store_tmp(self.stmt.tmp, retval, reg_deps, tmp_deps)
         else:
-            l.error("Unsupported dirty helper %s", self.stmt.cee.name)
+            # l.error("Unsupported dirty helper %s", self.stmt.cee.name)
             raise UnsupportedDirtyError("Unsupported dirty helper %s" % self.stmt.cee.name)
