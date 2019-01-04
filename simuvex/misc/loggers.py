@@ -3,7 +3,8 @@ from .testing import is_testing
 
 class Loggers(object):
     def __init__(self, default_level=logging.WARNING):
-        self.default_level = default_level
+        #self.default_level = default_level
+        self.default_level = logging.CRITICAL
         self._loggers = {}
         self.load_all_loggers()
 
